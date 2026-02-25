@@ -1,1 +1,22 @@
-<img src="./planning.png" alt="Planning MaurizoGameur">
+name: Auto Planning Discord
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "planning.png"
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send to Discord
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          IMG="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/planning.png?ts=$(date +%s)"
+
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d "{\"content\":\"📅 Nouveau planning stream 🔥\",\"embeds\":[{\"image\":{\"url\":\"$IMG\"}}]}" \
+          "$WEBHOOK"
