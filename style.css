@@ -1,0 +1,773 @@
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:#070a12;
+  color:#eaf0ff;
+  line-height:1.45;
+  overflow-x:hidden;
+}
+
+:root{
+  --panel: rgba(255,255,255,.06);
+  --panel2: rgba(255,255,255,.04);
+  --border: rgba(255,255,255,.10);
+  --text:#eaf0ff;
+  --mut: rgba(234,240,255,.72);
+
+  --a1:#4cc9f0;
+  --a2:#f72585;
+
+  --shadow: 0 18px 55px rgba(0,0,0,.35);
+  --r: 18px;
+}
+
+.container{width:min(1100px, calc(100% - 32px)); margin:0 auto;}
+
+.top{
+  position:sticky; top:0; z-index:20;
+  background:rgba(7,10,18,.75);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.top__inner{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:14px; padding:14px 0;
+}
+
+.brand{display:flex; align-items:center; gap:10px;}
+.brand__logo{
+  width:42px; height:42px; display:grid; place-items:center;
+  border-radius:14px;
+  background: linear-gradient(135deg, rgba(76,201,240,.25), rgba(247,37,133,.18));
+  border:1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.brand__name{font-weight:900; letter-spacing:.3px}
+.brand__tag{font-size:12px; color:var(--mut)}
+
+.nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:center;}
+.nav a{
+  color:var(--mut); text-decoration:none;
+  padding:8px 10px; border-radius:12px;
+}
+.nav a:hover{
+  color:var(--text);
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  text-decoration:none;
+  border-radius:14px; padding:10px 14px;
+  font-weight:800;
+  border:1px solid rgba(255,255,255,.10);
+  transition: transform .12s ease, background .12s ease;
+}
+.btn--primary{
+  color:#081018;
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+  box-shadow: 0 12px 30px rgba(76,201,240,.14);
+}
+.btn--ghost{ color:var(--text); background:rgba(255,255,255,.06); }
+.btn:hover{ transform: translateY(-1px); }
+
+.hero{position:relative; padding:34px 0 24px;}
+.hero::before{
+  content:""; position:absolute; inset:-200px -200px auto -200px; height:520px;
+  background:
+    radial-gradient(closest-side at 20% 40%, rgba(76,201,240,.18), transparent 60%),
+    radial-gradient(closest-side at 70% 30%, rgba(247,37,133,.14), transparent 60%);
+  pointer-events:none;
+}
+.hero__inner{
+  display:grid; grid-template-columns: 1.2fr .8fr;
+  gap:18px; align-items:start;
+}
+
+.pill{
+  display:inline-flex; width:fit-content;
+  padding:7px 10px; border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.10);
+  color:var(--mut);
+  margin-bottom:10px;
+}
+.hero h1{margin:0 0 8px; font-size: clamp(26px, 5vw, 46px);}
+.hero p{margin:0 0 16px; color:var(--mut); max-width:60ch;}
+.hero__cta{display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 16px;}
+
+.stats{display:flex; gap:10px; flex-wrap:wrap;}
+.stat{
+  background:var(--panel2); border:1px solid var(--border);
+  border-radius:16px; padding:12px 14px; min-width:150px;
+}
+.stat__n{font-weight:900; font-size:18px}
+.stat__t{color:var(--mut); font-size:13px}
+
+.section{padding:22px 0;}
+.section__head{margin-bottom:12px;}
+.section__head h2{margin:0 0 4px;}
+.section__head p{margin:0; color:var(--mut);}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:16px;
+  box-shadow: var(--shadow);
+}
+.grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;}
+.card h3{margin:0 0 6px}
+.card p{margin:0; color:var(--mut)}
+
+.big__top{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; margin-bottom:10px;
+}
+.big__title{font-weight:900}
+.big__badge{
+  font-size:12px; padding:6px 10px; border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: linear-gradient(90deg, rgba(76,201,240,.18), rgba(247,37,133,.14));
+}
+.big__box{
+  border-radius:16px;
+  border:1px dashed rgba(255,255,255,.18);
+  background: rgba(0,0,0,.18);
+  padding:12px;
+}
+.big__desc{margin-top:10px; color:var(--mut)}
+
+.twitch{
+  width:100%;
+  aspect-ratio: 16 / 9;
+  border:0;
+  border-radius:12px;
+  background: rgba(255,255,255,.03);
+}
+.hint{
+  margin-top:10px;
+  font-size:12px;
+  color: rgba(234,240,255,.65);
+}
+
+.scheduleCard__row{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.scheduleCard__title{font-weight:900}
+.scheduleCard__sub{color:var(--mut); font-size:13px; margin-top:2px;}
+
+.links{display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;}
+.linkbtn{
+  text-decoration:none; color:var(--text);
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px 14px;
+  text-align:center;
+  font-weight:900;
+  transition: transform .12s ease, background .12s ease;
+}
+.linkbtn:hover{
+  transform: translateY(-1px);
+  background: linear-gradient(90deg, rgba(76,201,240,.14), rgba(247,37,133,.12));
+}
+
+.footer{
+  border-top:1px solid var(--border);
+  padding:18px 0;
+  margin-top:18px;
+}
+.footer__inner{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; color:var(--mut);
+}
+.muted{color:var(--mut)}
+
+@media (max-width: 980px){
+  .hero__inner{grid-template-columns: 1fr}
+  .links{grid-template-columns: 1fr 1fr}
+  .grid{grid-template-columns: 1fr}
+}
+@media (max-width: 520px){
+  .nav{display:none}
+  .links{grid-template-columns: 1fr}
+
+}
+index.html
+
+/* mobile */
+@media (max-width: 900px){
+  .twitchWrap{
+    grid-template-columns: 1fr;
+  }
+  .twitchChat{
+    height:400px;
+  }
+}
+/* =========================================================
+   🔥 OFFLINE FIRE RED (Patch) — MaurizoGameur
+   Ajoute: overlay FireRed + glow + boutons + Pokéballs
+   Colle ce bloc TOUT EN BAS de style.css
+   ========================================================= */
+
+:root{
+  --fr-dark:#1a0f0f;
+  --fr-dred:#5c0b0b;
+  --fr-red:#b91c1c;
+  --fr-orange:#ff7a18;
+  --fr-glow:#ffd166;
+  --fr-ink:#fff3e8;
+}
+
+/* S'assure que l'overlay peut se positionner */
+.playerWrap{ position:relative; }
+.twitch{ display:block; }
+
+/* Overlay OFFLINE */
+.offlineOverlay{
+  position:absolute;
+  inset:0;
+  border-radius:16px;
+  overflow:hidden;
+  display:none; /* affiché via JS en OFFLINE */
+  background:
+    radial-gradient(120% 90% at 20% 0%, rgba(255,255,255,.12), transparent 60%),
+    radial-gradient(120% 100% at 80% 20%, rgba(0,0,0,.28), transparent 62%),
+    linear-gradient(180deg, var(--fr-dred), var(--fr-dark));
+}
+
+/* Glow fort */
+.offlineOverlay::after{
+  content:"";
+  position:absolute; inset:-2px;
+  border-radius:18px;
+  pointer-events:none;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.10),
+    0 0 40px rgba(255,122,24,.18),
+    0 0 90px rgba(255,209,102,.10);
+  mix-blend-mode: screen;
+}
+
+/* texture + scanlines */
+.offlineOverlay::before{
+  content:"";
+  position:absolute; inset:-40px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 2px, transparent 2px 8px),
+    repeating-linear-gradient(180deg, rgba(0,0,0,.16) 0 2px, transparent 2px 6px),
+    radial-gradient(closest-side at 30% 20%, rgba(255,209,102,.16), transparent 62%),
+    radial-gradient(closest-side at 70% 70%, rgba(255,122,24,.14), transparent 62%);
+  opacity:.95;
+  pointer-events:none;
+}
+
+.offlineInner{
+  position:absolute; inset:0;
+  display:grid;
+  place-items:center;
+  padding:18px;
+  text-align:center;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  border-radius:999px;
+  background: rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.14);
+  color: var(--fr-ink);
+  box-shadow: 0 0 0 2px rgba(255,122,24,.12), 0 14px 40px rgba(0,0,0,.35);
+  margin-bottom: 14px;
+}
+
+.flameDot{
+  width:12px;height:12px;border-radius:3px;
+  background: linear-gradient(180deg, var(--fr-glow), var(--fr-orange), var(--fr-red));
+  box-shadow: 0 0 18px rgba(255,209,102,.25);
+}
+
+.offlineTitle{
+  font-weight: 1000;
+  font-size: clamp(26px, 4vw, 54px);
+  margin: 0 0 8px;
+  color: var(--fr-ink);
+  text-shadow: 0 10px 32px rgba(0,0,0,.50);
+}
+
+.offlineSub{
+  margin: 0 0 16px;
+  color: rgba(255,243,232,.86);
+  font-size: 15px;
+}
+
+.offlineFooter{
+  margin-top: 14px;
+  color: rgba(255,243,232,.74);
+  font-size: 13px;
+}
+
+/* ✅ BOUTONS CENTRE (force) */
+.offlineButtons{
+  display:flex !important;
+  gap:14px !important;
+  flex-wrap:wrap !important;
+  justify-content:center !important;
+  margin-top: 12px !important;
+}
+
+.offlineButtons a{
+  text-decoration:none !important;
+}
+
+.fireBtn{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:8px !important;
+  padding: 13px 20px !important;
+  border-radius: 999px !important;
+  font-weight: 1000 !important;
+  font-size: 15px !important;
+  color: #160a06 !important;
+  border: 1px solid rgba(0,0,0,.25) !important;
+  background: linear-gradient(90deg, var(--fr-glow), var(--fr-orange)) !important;
+  box-shadow: 0 16px 46px rgba(255,122,24,.18) !important;
+  transition: transform .12s ease !important;
+}
+
+.fireBtn:hover{ transform: translateY(-1px) !important; }
+
+.fireBtn--ghost{
+  color: var(--fr-ink) !important;
+  background: rgba(0,0,0,.26) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  box-shadow: none !important;
+}
+
+/* ✨ Sparks */
+.sparks{ position:absolute; inset:0; pointer-events:none; opacity:.9; }
+.spark{
+  position:absolute;
+  width:6px;height:6px;border-radius:2px;
+  background: var(--fr-glow);
+  box-shadow: 0 0 0 2px rgba(255,122,24,.25);
+  animation: float 4.2s linear infinite;
+  opacity:.9;
+}
+.spark:nth-child(2){left:18%; top:70%; animation-duration:5.4s; opacity:.65}
+.spark:nth-child(3){left:72%; top:62%; animation-duration:4.8s; opacity:.75}
+.spark:nth-child(4){left:82%; top:30%; animation-duration:6.2s; opacity:.6}
+.spark:nth-child(5){left:10%; top:28%; animation-duration:5.9s; opacity:.55}
+
+@keyframes float{
+  0%{transform: translateY(12px) scale(1)}
+  50%{transform: translateY(-14px) scale(1.05)}
+  100%{transform: translateY(12px) scale(1)}
+}
+
+/* 🎮 Pokéballs flottantes */
+.pokeFloat{ position:absolute; inset:0; pointer-events:none; opacity:.95; }
+.poke{
+  position:absolute;
+  width:22px;height:22px;
+  border-radius:999px;
+  background:
+    radial-gradient(circle at 50% 50%, #fff 0 28%, transparent 29%),
+    linear-gradient(#ff2d2d 0 50%, #ffffff 50% 100%);
+  border: 2px solid rgba(0,0,0,.45);
+  box-shadow:
+    0 0 0 2px rgba(255,209,102,.12),
+    0 0 18px rgba(255,122,24,.12);
+  animation: drift 8.4s ease-in-out infinite;
+  opacity:.75;
+}
+.poke::after{
+  content:"";
+  position:absolute; left:50%; top:50%;
+  width:6px;height:6px;border-radius:999px;
+  transform: translate(-50%,-50%);
+  background:#0f0f0f;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.72);
+  opacity:.85;
+}
+.poke.p2{left:12%; top:22%; transform: scale(1.05); animation-duration:8.4s; opacity:.7}
+.poke.p3{left:78%; top:26%; transform: scale(.95); animation-duration:9.2s; opacity:.65}
+.poke.p4{left:22%; top:72%; transform: scale(.9);  animation-duration:10.1s; opacity:.55}
+.poke.p5{left:86%; top:66%; transform: scale(1.1);  animation-duration:8.8s; opacity:.6}
+
+@keyframes drift{
+  0%{ transform: translateY(0px) translateX(0px) rotate(0deg); }
+  50%{ transform: translateY(-16px) translateX(10px) rotate(6deg); }
+  100%{ transform: translateY(0px) translateX(0px) rotate(0deg); }
+}
+
+/* 🔴 Bouton LIVE auto (si tu l'utilises) */
+.btn--live{ display:none; }
+.btn--live.show{ display:inline-flex; }
+/* =========================================================
+   🖼️ HERO BANNER (comme l'exemple Barbe Douce)
+   Remplace l’image ici ✅
+   ========================================================= */
+
+.heroBanner{
+  height: clamp(260px, 46vw, 520px);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid rgba(255,209,102,.55);
+  box-shadow: 0 18px 70px rgba(0,0,0,.55);
+  position: relative;
+  background:#000;
+}
+
+.heroBanner::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(120% 90% at 20% 10%, rgba(0,0,0,.10), rgba(0,0,0,.65) 70%),
+    linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55)),
+    url("https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/refs/heads/main/banner.png")
+    center / cover no-repeat;
+  transform: scale(1.02);
+}
+
+.heroBanner::after{
+  content:"";
+  position:absolute; inset:-60px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 2px, transparent 2px 8px),
+    repeating-linear-gradient(180deg, rgba(0,0,0,.18) 0 2px, transparent 2px 6px);
+  opacity:.45;
+  pointer-events:none;
+  mix-blend-mode: overlay;
+}
+
+.heroTop{
+  position:absolute; top:10px; left:12px; right:12px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; z-index:2;
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 10px 28px rgba(0,0,0,.65);
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.heroBadge{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 10px;
+  border-radius:999px;
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(6px);
+}
+
+.heroCenter{
+  position:absolute; inset:0;
+  display:grid;
+  place-items:center;
+  padding: 18px;
+  z-index:2;
+  text-align:center;
+}
+
+.heroTitle{
+  margin:0;
+  font-weight: 1000;
+  letter-spacing: .02em;
+  font-size: clamp(44px, 8vw, 110px);
+  line-height: 1;
+  text-transform: uppercase;
+
+  -webkit-text-stroke: 10px rgba(0,0,0,.65);
+  paint-order: stroke fill;
+
+  text-shadow:
+    0 14px 40px rgba(0,0,0,.55),
+    0 0 18px rgba(255,209,102,.18);
+}
+
+.heroTitle span{
+  background: linear-gradient(180deg, #fff 0%, #fff 48%, rgba(255,209,102,.95) 100%);
+  -webkit-background-clip: text;
+  background-clip:text;
+  color: transparent;
+}
+
+.heroSub{
+  margin: 12px 0 0;
+  color: rgba(255,255,255,.86);
+  font-weight: 800;
+  text-shadow: 0 12px 30px rgba(0,0,0,.6);
+}
+
+/* live + chat dessous */
+.liveGrid{
+  margin-top: 14px;
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+
+.liveBox{
+  width:100%;
+  aspect-ratio: 16 / 9;
+  min-height: 420px;
+  border:0;
+  border-radius: 16px;
+  background:#000;
+  display:block;
+}
+
+.chatBox{
+  width:100%;
+  height: 100%;
+  min-height: 420px;
+  border:0;
+  border-radius: 16px;
+  background:#000;
+  display:block;
+}
+
+@media (max-width: 980px){
+  .heroBanner{height: 320px}
+  .liveGrid{grid-template-columns: 1fr}
+  .chatBox{min-height: 520px}
+}
+/* =========================================================
+   🔥 HERO BANNER V2 — FireRed x Dofus (LÉGER + ANIMÉ)
+   Colle ce bloc TOUT EN BAS de style.css
+   ========================================================= */
+
+:root{
+  --fr-dark:#1a0f0f;
+  --fr-dred:#5c0b0b;
+  --fr-red:#b91c1c;
+  --fr-orange:#ff7a18;
+  --fr-glow:#ffd166;
+  --fr-ink:#fff3e8;
+}
+
+.heroV2{
+  height: clamp(280px, 42vw, 520px);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+
+  /* bordure + glow */
+  border: 2px solid rgba(255,209,102,.65);
+  box-shadow:
+    0 22px 70px rgba(0,0,0,.55),
+    0 0 0 1px rgba(255,255,255,.10),
+    0 0 40px rgba(255,122,24,.18),
+    0 0 90px rgba(255,209,102,.10);
+}
+
+/* ✅ TON BACKGROUND IMAGE (plus lumineux + fire overlay) */
+.heroV2::before{
+  content:"";
+  position:absolute; inset:0;
+
+  background:
+    /* Fire glow (vivant) */
+    radial-gradient(120% 85% at 20% 15%, rgba(255,209,102,.22), transparent 60%),
+    radial-gradient(110% 90% at 85% 25%, rgba(255,122,24,.18), transparent 62%),
+    radial-gradient(120% 110% at 50% 120%, rgba(185,28,28,.18), transparent 60%),
+
+    /* ta bannière en dessous */
+    url("https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/banner.png")
+    center / cover no-repeat;
+
+  /* 💡 boost luminosité */
+  filter: brightness(1.25) contrast(1.08) saturate(1.12);
+  transform: scale(1.02);
+}
+
+/* texture pixel + scanlines animées (léger) */
+.heroV2::after{
+  content:"";
+  position:absolute; inset:-80px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 8px),
+    repeating-linear-gradient(180deg, rgba(0,0,0,.14) 0 2px, transparent 2px 6px),
+    radial-gradient(closest-side at 30% 20%, rgba(255,209,102,.14), transparent 62%),
+    radial-gradient(closest-side at 70% 70%, rgba(255,122,24,.10), transparent 62%);
+  opacity:.55;
+  pointer-events:none;
+  mix-blend-mode: overlay;
+  animation: heroScan 7.5s linear infinite;
+}
+
+@keyframes heroScan{
+  0%{ transform: translateY(0px); }
+  50%{ transform: translateY(8px); }
+  100%{ transform: translateY(0px); }
+}
+
+/* voile pour lisibilité du texte */
+.heroV2Shade{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55));
+  z-index:1;
+}
+
+/* top row (badge + CTA) */
+.heroV2Top{
+  position:absolute; top:10px; left:12px; right:12px;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  z-index:3;
+  font-weight: 1000;
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 10px 28px rgba(0,0,0,.65);
+}
+.heroV2Badge{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 10px;
+  border-radius:999px;
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(6px);
+}
+.heroV2CTA{
+  font-size: 13px;
+  color: var(--fr-glow);
+  text-decoration:none;
+}
+.heroV2CTA:hover{ text-decoration: underline; }
+
+/* centre texte */
+.heroV2Center{
+  position:absolute; inset:0;
+  display:grid; place-items:center;
+  padding: 18px;
+  z-index:3;
+  text-align:center;
+}
+
+.heroV2Title{
+  margin:0;
+  font-weight: 1000;
+  letter-spacing: .02em;
+  font-size: clamp(44px, 8vw, 110px);
+  line-height: 1;
+  text-transform: uppercase;
+
+  /* contour + shadow (style e-sport) */
+  -webkit-text-stroke: 10px rgba(0,0,0,.62);
+  paint-order: stroke fill;
+  text-shadow:
+    0 14px 40px rgba(0,0,0,.55),
+    0 0 24px rgba(255,209,102,.18);
+}
+
+/* remplissage doré + blanc */
+.heroV2Title span{
+  background: linear-gradient(180deg, #fff 0%, #fff 45%, rgba(255,209,102,.95) 100%);
+  -webkit-background-clip: text;
+  background-clip:text;
+  color: transparent;
+}
+
+.heroV2Sub{
+  margin: 12px 0 0;
+  color: rgba(255,255,255,.88);
+  font-weight: 900;
+  text-shadow: 0 12px 30px rgba(0,0,0,.6);
+}
+
+/* 🔥 Particules feu (ultra léger) */
+.heroV2Sparks{ position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.95; }
+.heroV2Spark{
+  position:absolute;
+  width:6px; height:6px; border-radius:2px;
+  background: var(--fr-glow);
+  box-shadow: 0 0 0 2px rgba(255,122,24,.25);
+  animation: heroFloat 4.8s ease-in-out infinite;
+  opacity:.8;
+}
+@keyframes heroFloat{
+  0%{ transform: translateY(10px) scale(1); }
+  50%{ transform: translateY(-14px) scale(1.06); }
+  100%{ transform: translateY(10px) scale(1); }
+}
+
+/* 🎮 Pokéball + Dofus (CSS only, pas d’images) */
+.heroV2Orb{
+  position:absolute;
+  width:26px; height:26px;
+  border-radius:999px;
+  border:2px solid rgba(0,0,0,.45);
+  z-index:2;
+  opacity:.78;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
+  animation: heroDrift 9s ease-in-out infinite;
+}
+.heroV2Orb.poke{
+  background:
+    radial-gradient(circle at 50% 50%, #fff 0 28%, transparent 29%),
+    linear-gradient(#ff2d2d 0 50%, #ffffff 50% 100%);
+  box-shadow: 0 0 0 2px rgba(255,209,102,.10), 0 0 18px rgba(255,122,24,.10);
+}
+.heroV2Orb.poke::after{
+  content:"";
+  position:absolute; left:50%; top:50%;
+  width:7px;height:7px;border-radius:999px;
+  transform: translate(-50%,-50%);
+  background:#0f0f0f;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.72);
+  opacity:.85;
+}
+
+.heroV2Orb.dofus{
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,.75), transparent 45%),
+    radial-gradient(circle at 60% 60%, rgba(76,201,240,.22), transparent 55%),
+    linear-gradient(180deg, rgba(255,209,102,.95), rgba(255,122,24,.88));
+  box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 0 18px rgba(255,209,102,.14);
+  border-radius: 10px 999px 999px 999px; /* petit look “oeuf” */
+}
+
+@keyframes heroDrift{
+  0%{ transform: translate(0,0) rotate(0deg); }
+  50%{ transform: translate(10px,-16px) rotate(6deg); }
+  100%{ transform: translate(0,0) rotate(0deg); }
+}
+
+/* ✅ live + chat dessous (si pas déjà dans ton CSS) */
+.liveGrid{
+  margin-top: 14px;
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+.liveBox{
+  width:100%;
+  aspect-ratio: 16 / 9;
+  min-height: 420px;
+  border:0;
+  border-radius: 16px;
+  background:#000;
+  display:block;
+}
+.chatBox{
+  width:100%;
+  height: 100%;
+  min-height: 420px;
+  border:0;
+  border-radius: 16px;
+  background:#000;
+  display:block;
+}
+
+@media (max-width: 980px){
+  .heroV2{height: 320px}
+  .liveGrid{grid-template-columns: 1fr}
+  .chatBox{min-height: 520px}
+}
+
+
