@@ -428,58 +428,59 @@
     </section>
   </main>
 
-  <script>
-    // ✅ Chat toggle
-    const btnChat = document.getElementById("toggleChat");
-    const chatWrap = document.getElementById("chatWrap");
-    let chatOpen = false;
-    btnChat.addEventListener("click", () => {
-      chatOpen = !chatOpen;
-      chatWrap.style.display = chatOpen ? "block" : "none";
-      btnChat.textContent = chatOpen ? "❌ Fermer chat" : "💬 Chat";
-    });
+ <script>
+  const overlay = document.getElementById("offlineOverlay");
+  const dot = document.getElementById("dot");
+  const statusText = document.getElementById("statusText");
+  const subText = document.getElementById("subText");
+  const liveBtn = document.getElementById("liveBtn");
 
-    // ✅ Auto LIVE/OFFLINE
-    const overlay = document.getElementById("offlineOverlay");
-    const dot = document.getElementById("dot");
-    const statusText = document.getElementById("statusText");
-    const subText = document.getElementById("subText");
-    const liveBtn = document.getElementById("liveBtn");
+  const CHANNEL = "maurizogameur";
 
-    const CHANNEL = "maurizogameur";
-    const STATUS_URL = `https://decapi.me/twitch/streaming/${CHANNEL}`; // true/false
+  // ✅ bypass CORS (GitHub Pages) via AllOrigins
+  const UPTIME_URL =
+    "https://api.allorigins.win/raw?url=" +
+    encodeURIComponent("https://decapi.me/twitch/uptime/" + CHANNEL);
 
-    function setLive(isLive){
-      if(isLive){
-        overlay.style.display = "none";
-        dot.classList.remove("off");
-        dot.classList.add("live");
-        statusText.textContent = "LIVE";
-        subText.textContent = "🔴 En direct sur Twitch !";
-        liveBtn.classList.add("show");
-      }else{
-        overlay.style.display = "block";
-        dot.classList.remove("live");
-        dot.classList.add("off");
-        statusText.textContent = "OFFLINE";
-        subText.textContent = "Dofus • Pokémon • Communauté";
-        liveBtn.classList.remove("show");
-      }
+  function setLive(isLive){
+    if(isLive){
+      overlay.style.display = "none";
+      dot.classList.remove("off");
+      dot.classList.add("live");
+      statusText.textContent = "LIVE";
+      subText.textContent = "🔴 En direct sur Twitch !";
+      liveBtn.classList.add("show");
+    }else{
+      overlay.style.display = "block";
+      dot.classList.remove("live");
+      dot.classList.add("off");
+      statusText.textContent = "OFFLINE";
+      subText.textContent = "Dofus • Pokémon • Communauté";
+      liveBtn.classList.remove("show");
     }
+  }
 
-    async function checkStatus(){
-      try{
-        const res = await fetch(STATUS_URL, { cache: "no-store" });
-        const txt = (await res.text()).trim().toLowerCase();
-        setLive(txt === "true");
-      }catch(e){
-        // si l'API status est down, on garde OFFLINE par sécurité
-        setLive(false);
-      }
+  async function checkLive(){
+    try{
+      const res = await fetch(UPTIME_URL, { cache: "no-store" });
+      const txt = (await res.text()).trim().toLowerCase();
+
+      // decapi uptime renvoie "offline" quand tu n'es pas live
+      const isLive = !txt.includes("offline");
+      setLive(isLive);
+    }catch(e){
+      // si erreur réseau, on ne change rien
+      console.log("checkLive error:", e);
     }
+  }
 
-    checkStatus();
-    setInterval(checkStatus, 60000); // check toutes les 60s
-  </script>
-</body>
-</html>
+  checkLive();
+  setInterval(checkLive, 60000);
+
+  // ✅ Debug: touche L = force LIVE / O = force OFFLINE
+  document.addEventListener("keydown", (e)=>{
+    if(e.key.toLowerCase() === "l") setLive(true);
+    if(e.key.toLowerCase() === "o") setLive(false);
+  });
+</script>
+
