@@ -3,223 +3,248 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MaurizoGameur • Planning</title>
-  <meta name="description" content="Planning stream MaurizoGameur (Dofus & Pokémon)" />
+  <title>MaurizoGameur • Accueil</title>
+  <meta name="description" content="MaurizoGameur • Dofus & Pokémon • Live Twitch + Chat + Planning + Discord" />
 
   <style>
+    :root{
+      --bg:#070a12;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.04);
+      --border: rgba(255,255,255,.10);
+      --text:#eaf0ff;
+      --mut: rgba(234,240,255,.72);
+      --shadow: 0 18px 55px rgba(0,0,0,.35);
+      --r: 18px;
+
+      /* FireRed-ish */
+      --glow:#ffd166;
+      --orange:#ff7a18;
+      --red:#b91c1c;
+    }
+
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
     body{
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:#070a12;
-      color:#eaf0ff;
+      background: radial-gradient(1200px 700px at 20% 0%, rgba(255,122,24,.10), transparent 60%),
+                  radial-gradient(900px 600px at 80% 10%, rgba(255,209,102,.10), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.45;
       overflow-x:hidden;
     }
-    :root{
-      --shadow: 0 22px 70px rgba(0,0,0,.55);
-      --r: 20px;
-      --border: rgba(255,255,255,.10);
-      --panel: rgba(255,255,255,.05);
 
-      /* FireRed */
-      --fr-dark:#1a0f0f;
-      --fr-dred:#5c0b0b;
-      --fr-red:#b91c1c;
-      --fr-orange:#ff7a18;
-      --fr-glow:#ffd166;
-      --fr-ink:#fff3e8;
-      --mut: rgba(234,240,255,.72);
+    .container{width:min(1200px, calc(100% - 32px)); margin:0 auto;}
+    .top{
+      position:sticky; top:0; z-index:50;
+      background: rgba(7,10,18,.78);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .top__inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:12px 0;
     }
 
-    .wrap{ width:min(1200px, calc(100% - 24px)); margin: 18px auto 28px; }
-
-    /* Topbar */
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding: 10px 14px;
-      border-radius:999px;
+    .brand{
+      display:flex; align-items:center; gap:10px; min-width:0;
+      padding:10px 12px; border-radius:999px;
       background: rgba(255,255,255,.04);
       border:1px solid rgba(255,255,255,.08);
       box-shadow: var(--shadow);
-      margin-bottom: 12px;
-    }
-    .left{display:flex;align-items:center;gap:10px;min-width:0}
-    .badge{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 10px;border-radius:999px;
-      background: rgba(0,0,0,.35);
-      border:1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.92);
-      font-weight:1000;
     }
     .dot{
-      width:10px;height:10px;border-radius:3px;
-      background: linear-gradient(180deg, var(--fr-glow), var(--fr-orange), var(--fr-red));
-      box-shadow: 0 0 18px rgba(255,122,24,.28);
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(180deg, var(--glow), var(--orange), var(--red));
+      box-shadow: 0 0 16px rgba(255,122,24,.25);
+      flex:0 0 auto;
     }
-    .right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .brand b{font-weight:950}
+    .brand span{color:var(--mut); font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:44vw}
 
+    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      padding:10px 14px;border-radius:999px;text-decoration:none;
-      font-weight:900;border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);color:#eaf0ff;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      text-decoration:none;
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:900;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
       transition: transform .12s ease, background .12s ease;
+      user-select:none;
       cursor:pointer;
+      white-space:nowrap;
     }
-    .btn:hover{transform: translateY(-1px)}
-    .btn--primary{
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08);}
+    .btn--twitch{
       color:#160a06;
-      background: linear-gradient(90deg, var(--fr-glow), var(--fr-orange));
+      background: linear-gradient(90deg, var(--glow), var(--orange));
       border:1px solid rgba(0,0,0,.25);
-      box-shadow: 0 16px 46px rgba(255,122,24,.18);
+      box-shadow: 0 14px 40px rgba(255,122,24,.18);
     }
 
-    .frame{
+    .section{padding:18px 0;}
+    .card{
+      background: var(--panel);
+      border:1px solid var(--border);
       border-radius: var(--r);
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.09);
       box-shadow: var(--shadow);
-      padding: 12px;
       overflow:hidden;
     }
 
-    .head{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap:12px; flex-wrap:wrap;
-      margin-bottom: 10px;
-    }
-    h1{margin:0;font-size:18px;font-weight:1000;letter-spacing:.2px}
-    .sub{margin:0;color:var(--mut);font-size:13px}
-
-    /* Image viewer */
-    .viewer{
+    /* ===== Banner ===== */
+    .banner{
       position:relative;
-      border-radius: 16px;
-      border: 1px dashed rgba(255,255,255,.18);
-      background: rgba(0,0,0,.18);
-      padding: 10px;
+      height: 320px;
+      border-radius: var(--r);
       overflow:hidden;
+      border: 1px solid rgba(255,209,102,.35);
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.62)),
+        url("./banner.png") center/cover no-repeat;
     }
-    .imgWrap{
-      width:100%;
-      overflow:auto;
-      border-radius: 14px;
-      background: rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.08);
-      max-height: 70vh;
+    .banner::after{
+      content:"";
+      position:absolute; inset:-2px;
+      pointer-events:none;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.10),
+        0 0 42px rgba(255,122,24,.16),
+        0 0 90px rgba(255,209,102,.08);
+      border-radius: calc(var(--r) + 2px);
+      mix-blend-mode: screen;
     }
-    .imgWrap::-webkit-scrollbar{height:10px;width:10px}
-    .imgWrap::-webkit-scrollbar-thumb{background: rgba(255,255,255,.16); border-radius:999px}
-    .img{
-      display:block;
-      width: 100%;
-      height: auto;
-      transform-origin: top left;
-      border-radius: 10px;
+    .banner__top{
+      position:absolute; left:14px; top:14px;
+      display:inline-flex; align-items:center; gap:10px;
+      padding:9px 12px;
+      border-radius:999px;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.14);
+      color: rgba(234,240,255,.9);
+      font-weight:950;
+      backdrop-filter: blur(6px);
+    }
+    .banner__top .pillDot{
+      width:10px;height:10px;border-radius:999px;
+      background: rgba(255,255,255,.35);
+    }
+    .banner__top .pillDot.off{
+      background: linear-gradient(180deg, var(--glow), var(--orange), var(--red));
+      box-shadow: 0 0 16px rgba(255,122,24,.25);
+    }
+    .banner__cta{
+      position:absolute; right:14px; top:14px;
+      font-size:12px; color: rgba(255,209,102,.95);
+      font-weight:900;
+      text-shadow: 0 8px 18px rgba(0,0,0,.45);
     }
 
-    .tools{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin-top: 10px;
-      justify-content:flex-start;
+    /* ===== Live + Chat ===== */
+    .liveHead{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
-
-    .note{
-      margin-top:10px;
-      font-size:12px;
-      color: rgba(234,240,255,.65);
+    .liveHead b{font-weight:950}
+    .liveHead small{color:var(--mut)}
+    .grid2{
+      display:grid;
+      grid-template-columns: 1.55fr .75fr; /* live gros / chat */
+      gap:12px;
+      padding:12px;
     }
+    .box{
+      border-radius: 16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      min-height: 520px;
+    }
+    iframe{border:0; width:100%; height:100%; display:block; background:#000;}
+    .player{aspect-ratio:16/9; height:auto; min-height:520px;}
+    .chat{min-height:520px;}
 
-    @media (max-width: 900px){
-      .sub{display:none}
-      .imgWrap{max-height: 62vh}
+    @media (max-width: 980px){
+      .grid2{grid-template-columns: 1fr;}
+      .player{min-height:320px;}
+      .chat{min-height:520px;}
+      .banner{height:240px;}
+      .brand span{display:none;}
     }
   </style>
 </head>
 
 <body>
-  <main class="wrap">
 
-    <div class="topbar">
-      <div class="left">
-        <span class="badge"><span class="dot"></span> Planning • MaurizoGameur</span>
-        <p class="sub">Dofus • Pokémon • Communauté</p>
-      </div>
-
-      <div class="right">
-        <a class="btn" href="./index.html">🏠 Accueil</a>
-        <a class="btn" href="./ma-page.html">👤 Ma page</a>
-        <a class="btn" href="https://discord.gg/7ARVD5hzR9" target="_blank" rel="noreferrer">💬 Discord</a>
-        <a class="btn btn--primary" href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">🎥 Twitch</a>
-      </div>
-    </div>
-
-    <section class="frame">
-      <div class="head">
+  <!-- TOP BAR -->
+  <header class="top">
+    <div class="container top__inner">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
         <div>
-          <h1>📅 Planning stream</h1>
-          <p class="sub">Zoom + téléchargement — pratique sur mobile et PC</p>
+          <b>MaurizoGameur</b>
+          <span> Dofus • Pokémon • Communauté</span>
         </div>
       </div>
 
-      <div class="viewer">
-        <div class="imgWrap" id="imgWrap">
-          <img
-            id="planningImg"
-            class="img"
-            src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur-site/main/planning.png"
-            alt="Planning stream MaurizoGameur" />
+      <nav class="nav">
+        <a class="btn" href="./index.html">🏠 Accueil</a>
+        <a class="btn" href="./mapage.html">👤 Ma page</a>
+        <a class="btn" href="./planning.html">📅 Planning</a>
+        <a class="btn" href="https://discord.gg/7ARVD5hzR9" target="_blank" rel="noreferrer">💬 Discord</a>
+        <a class="btn btn--twitch" href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">🎥 Twitch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- BANNER -->
+    <section class="section">
+      <div class="banner">
+        <div class="banner__top">
+          <span class="pillDot off"></span>
+          <span>Stream OFF</span>
+        </div>
+        <div class="banner__cta">Rejoins-moi sur Twitch !</div>
+      </div>
+    </section>
+
+    <!-- LIVE + CHAT -->
+    <section class="section">
+      <div class="card">
+        <div class="liveHead">
+          <div>
+            <b>📺 Live + Chat</b><br>
+            <small>Live à gauche • Chat à droite</small>
+          </div>
+          <a class="btn btn--twitch" href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">🔴 Voir sur Twitch</a>
         </div>
 
-        <div class="tools">
-          <button class="btn" id="zoomOut" type="button">➖ Zoom</button>
-          <button class="btn" id="zoomIn" type="button">➕ Zoom</button>
-          <button class="btn" id="zoomReset" type="button">🔄 Reset</button>
-          <a class="btn" href="https://raw.githubusercontent.com/maurizoGameur/maurizogameur-site/main/planning.png" target="_blank" rel="noreferrer">🖼️ Ouvrir l’image</a>
-          <a class="btn" href="https://raw.githubusercontent.com/maurizoGameur/maurizogameur-site/main/planning.png" download>⬇️ Télécharger</a>
-        </div>
+        <div class="grid2">
+          <!-- LIVE -->
+          <div class="box">
+            <iframe class="player"
+              src="https://player.twitch.tv/?channel=maurizogameur&parent=maurizogameur.github.io&autoplay=true&muted=false"
+              allowfullscreen="true">
+            </iframe>
+          </div>
 
-        <div class="note">
-          Astuce : sur mobile, tu peux zoomer aussi avec tes doigts (pinch) + scroller.
+          <!-- CHAT -->
+          <div class="box">
+            <iframe class="chat"
+              src="https://www.twitch.tv/embed/maurizogameur/chat?parent=maurizogameur.github.io">
+            </iframe>
+          </div>
         </div>
       </div>
     </section>
+
   </main>
-
-  <script>
-    const img = document.getElementById("planningImg");
-    const wrap = document.getElementById("imgWrap");
-    const zoomIn = document.getElementById("zoomIn");
-    const zoomOut = document.getElementById("zoomOut");
-    const zoomReset = document.getElementById("zoomReset");
-
-    let scale = 1;
-
-    function applyZoom(){
-      img.style.transform = `scale(${scale})`;
-      // garde le scroll agréable
-      img.style.width = scale <= 1 ? "100%" : "auto";
-    }
-
-    zoomIn.addEventListener("click", ()=>{
-      scale = Math.min(3, +(scale + 0.15).toFixed(2));
-      applyZoom();
-    });
-
-    zoomOut.addEventListener("click", ()=>{
-      scale = Math.max(0.7, +(scale - 0.15).toFixed(2));
-      applyZoom();
-    });
-
-    zoomReset.addEventListener("click", ()=>{
-      scale = 1;
-      applyZoom();
-      wrap.scrollTop = 0;
-      wrap.scrollLeft = 0;
-    });
-
-    applyZoom();
-  </script>
 </body>
 </html>
