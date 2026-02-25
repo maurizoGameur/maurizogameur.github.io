@@ -1,234 +1,338 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>MaurizoGameur • Live</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MaurizoGameur • Live</title>
 
-<style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background:#070a12;
-  color:#eaf0ff;
-}
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#070a12;
+      color:#eaf0ff;
+      overflow-x:hidden;
+    }
 
-/* 🔥 FireRed palette */
-:root{
-  --dark:#1a0f0f;
-  --dred:#5c0b0b;
-  --red:#b91c1c;
-  --orange:#ff7a18;
-  --glow:#ffd166;
-  --ink:#fff3e8;
-}
+    :root{
+      --shadow: 0 22px 70px rgba(0,0,0,.55);
+      --r: 20px;
 
-.wrap{width:min(1500px,calc(100% - 24px));margin:18px auto}
+      /* FireRed palette */
+      --dark:#1a0f0f;
+      --dred:#5c0b0b;
+      --red:#b91c1c;
+      --orange:#ff7a18;
+      --glow:#ffd166;
+      --ink:#fff3e8;
+      --mut: rgba(255,243,232,.75);
 
-/* ===== TOP BAR ===== */
-.topbar{
-  display:flex;justify-content:space-between;gap:12px;
-  padding:10px 14px;border-radius:999px;
-  background:rgba(255,255,255,.05);
-}
-.left{display:flex;gap:10px;align-items:center}
+      --panel: rgba(255,255,255,.05);
+      --border: rgba(255,255,255,.10);
+    }
 
-.dot{
-  width:12px;height:12px;border-radius:999px;
-}
-.dot.live{background:#5CFF8F}
-.dot.off{
-  background:linear-gradient(var(--glow),var(--orange),var(--red));
-}
+    .wrap{
+      width: min(1500px, calc(100% - 24px));
+      margin: 18px auto 28px;
+    }
 
-.btn{
-  padding:10px 14px;border-radius:999px;
-  text-decoration:none;font-weight:900;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.08);
-  color:#fff;
-}
-.btn--twitch{
-  background:linear-gradient(90deg,#4cc9f0,#f72585);
-}
-.btn--live{display:none}
-.btn--live.show{display:inline-flex}
+    /* ===== TOP BAR ===== */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+    }
+    .left{display:flex;align-items:center;gap:10px;min-width:0}
+    .dot{width:12px;height:12px;border-radius:999px;background:rgba(255,255,255,.35)}
+    .dot.live{background:#5CFF8F; box-shadow:0 0 18px rgba(92,255,143,.35)}
+    .dot.off{
+      background: linear-gradient(180deg, var(--glow), var(--orange), var(--red));
+      box-shadow: 0 0 18px rgba(255,122,24,.28);
+    }
+    .status{font-weight:1000;letter-spacing:.2px;white-space:nowrap}
+    .small{color:rgba(234,240,255,.72);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:62vw}
 
-/* ===== PLAYER ===== */
-.frame{
-  border-radius:18px;
-  background:rgba(255,255,255,.04);
-  padding:12px;
-}
+    .right{display:flex;align-items:center;gap:10px;flex-wrap:wrap; justify-content:flex-end;}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding: 10px 14px;border-radius: 999px;text-decoration:none;
+      font-weight:900;border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);color:#eaf0ff;
+      cursor:pointer;user-select:none;
+      transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn--twitch{
+      color:#081018;
+      background: linear-gradient(90deg, #4cc9f0, #f72585);
+      box-shadow: 0 12px 34px rgba(76,201,240,.18);
+    }
 
-.playerWrap{position:relative}
+    /* ===== CARDS ===== */
+    .frame{
+      border-radius: var(--r);
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.09);
+      box-shadow: var(--shadow);
+      padding: 12px;
+    }
 
-.player{
-  width:100%;
-  aspect-ratio:16/9;
-  border-radius:16px;
-  border:0;
-}
+    h1{
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 1000;
+      letter-spacing:.2px;
+    }
 
-/* ===== CHAT ===== */
-.chatWrap{display:none;margin-top:12px}
-.chat{width:100%;height:520px;border-radius:16px;border:0}
+    /* ===== HERO COVER (exemple) ===== */
+    .hero{
+      border-radius: 18px;
+      overflow:hidden;
+      border: 2px solid rgba(255,209,102,.6);
+      box-shadow: 0 18px 70px rgba(0,0,0,.55);
+      position:relative;
+      background: #000;
+      margin-bottom: 12px;
+      height: clamp(260px, 46vw, 520px);
+    }
 
-/* ===== OFFLINE ===== */
-.offlineOverlay{
-  position:absolute;inset:0;
-  border-radius:16px;
-  display:none;
-  background:linear-gradient(var(--dred),var(--dark));
-}
+    /* Remplace l'image ici */
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(120% 90% at 20% 10%, rgba(0,0,0,.10), rgba(0,0,0,.65) 70%),
+        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55)),
+        url("YOUR_BANNER_IMAGE_URL") center/cover no-repeat;
+      filter: saturate(1.05) contrast(1.05);
+      transform: scale(1.02);
+    }
 
-.offlineInner{
-  position:absolute;inset:0;
-  display:grid;place-items:center;
-  text-align:center;
-}
+    /* léger grain */
+    .hero::after{
+      content:"";
+      position:absolute; inset:-60px;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 2px, transparent 2px 8px),
+        repeating-linear-gradient(180deg, rgba(0,0,0,.18) 0 2px, transparent 2px 6px);
+      opacity:.45;
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
 
-.badge{
-  background:rgba(0,0,0,.3);
-  padding:8px 12px;border-radius:999px;
-}
+    .heroTop{
+      position:absolute; top:10px; left:12px; right:12px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+      z-index:2;
+      color: rgba(255,255,255,.92);
+      text-shadow: 0 10px 28px rgba(0,0,0,.65);
+      font-weight: 900;
+      font-size: 14px;
+    }
+    .heroBadge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(6px);
+    }
+    .heroCTA{
+      font-size: 13px;
+      color: var(--glow);
+      text-decoration:none;
+      font-weight: 1000;
+    }
+    .heroCTA:hover{ text-decoration: underline; }
 
-.offlineTitle{
-  font-size:40px;font-weight:900;
-  color:var(--ink);
-}
+    .heroCenter{
+      position:absolute; inset:0;
+      display:grid;
+      place-items:center;
+      padding: 18px;
+      z-index:2;
+      text-align:center;
+    }
 
-.offlineButtons{margin-top:12px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+    /* Gros texte style “masque” / stroke */
+    .heroTitle{
+      margin:0;
+      font-weight: 1000;
+      letter-spacing: .02em;
+      font-size: clamp(44px, 8vw, 110px);
+      line-height: 1;
+      color: #fff;
+      text-transform: uppercase;
 
-.fireBtn{
-  padding:12px 18px;
-  border-radius:999px;
-  background:linear-gradient(var(--glow),var(--orange));
-  color:#000;text-decoration:none;
-}
-.fireBtn--ghost{
-  background:rgba(0,0,0,.3);
-  color:#fff;
-}
-</style>
+      /* effet “cartoon” (contour) */
+      -webkit-text-stroke: 10px rgba(0,0,0,.65);
+      paint-order: stroke fill;
+
+      /* ombres */
+      text-shadow:
+        0 14px 40px rgba(0,0,0,.55),
+        0 0 18px rgba(255,209,102,.18);
+    }
+
+    /* remplissage “doré” en overlay */
+    .heroTitle span{
+      background: linear-gradient(180deg, #fff 0%, #fff 48%, rgba(255,209,102,.95) 100%);
+      -webkit-background-clip: text;
+      background-clip:text;
+      color: transparent;
+    }
+
+    .heroSub{
+      margin: 12px 0 0;
+      color: rgba(255,255,255,.86);
+      font-weight: 800;
+      text-shadow: 0 12px 30px rgba(0,0,0,.6);
+    }
+
+    /* ===== LIVE + CHAT GRID ===== */
+    .liveGrid{
+      margin-top: 10px;
+      display:grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+    }
+
+    .liveBox{
+      width:100%;
+      aspect-ratio: 16 / 9;
+      min-height: 420px;
+      border:0;
+      border-radius: 16px;
+      background:#000;
+      display:block;
+    }
+
+    .chatBox{
+      width:100%;
+      height: 100%;
+      min-height: 420px;
+      border:0;
+      border-radius: 16px;
+      background:#000;
+      display:block;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .small{display:none}
+      .hero{height: 320px}
+      .liveGrid{grid-template-columns: 1fr}
+      .chatBox{min-height: 520px}
+    }
+  </style>
 </head>
 
 <body>
+  <main class="wrap">
 
-<main class="wrap">
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="left">
+        <span class="dot off" id="dot" aria-hidden="true"></span>
+        <span class="status" id="statusText">OFFLINE</span>
+        <span class="small" id="subText">Dofus • Pokémon • Communauté</span>
+      </div>
 
-<div class="topbar">
-  <div class="left">
-    <span class="dot off" id="dot"></span>
-    <span id="statusText">OFFLINE</span>
-  </div>
+      <div class="right">
+        <a class="btn btn--twitch" href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">
+          Rejoins-moi sur Twitch !
+        </a>
+      </div>
+    </div>
 
-  <div>
-    <button class="btn" id="toggleChat">💬 Chat</button>
+    <!-- HERO COVER (comme ton exemple) -->
+    <section class="hero" aria-label="Cover">
+      <div class="heroTop">
+        <div class="heroBadge">
+          <span class="dot off" id="heroDot" aria-hidden="true"></span>
+          <span id="heroStatus">Stream OFF</span>
+        </div>
+        <a class="heroCTA" href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">Rejoins-moi sur Twitch !</a>
+      </div>
 
-    <a id="liveBtn" class="btn btn--live"
-       href="https://www.twitch.tv/maurizogameur"
-       target="_blank">🔴 LIVE</a>
+      <div class="heroCenter">
+        <div>
+          <h2 class="heroTitle"><span>MAURIZOGAMEUR</span></h2>
+          <p class="heroSub">LE STREAMER À L’ORIGINE DE CE SITE • DOFUS • POKÉMON</p>
+        </div>
+      </div>
+    </section>
 
-    <a class="btn btn--twitch"
-       href="https://www.twitch.tv/maurizogameur"
-       target="_blank">Twitch</a>
-  </div>
-</div>
+    <!-- LIVE + CHAT -->
+    <section class="frame">
+      <h1>📺 Live + Chat</h1>
 
-<section class="frame">
+      <div class="liveGrid">
+        <!-- LIVE -->
+        <iframe
+          class="liveBox"
+          src="https://player.twitch.tv/?channel=maurizogameur&parent=maurizogameur.github.io&autoplay=false"
+          allowfullscreen="true">
+        </iframe>
 
-<div class="playerWrap">
+        <!-- CHAT -->
+        <iframe
+          class="chatBox"
+          src="https://www.twitch.tv/embed/maurizogameur/chat?parent=maurizogameur.github.io">
+        </iframe>
+      </div>
+    </section>
 
-<iframe
-class="player"
-src="https://player.twitch.tv/?channel=maurizogameur&parent=maurizogameur.github.io">
-</iframe>
+  </main>
 
-<!-- OFFLINE -->
-<div class="offlineOverlay" id="offlineOverlay">
-<div class="offlineInner">
+  <!-- LIVE/OFFLINE auto (juste pour le point + texte, sans cacher la cover) -->
+  <script>
+    const CHANNEL = "maurizogameur";
+    const UPTIME_URL =
+      "https://api.allorigins.win/raw?url=" +
+      encodeURIComponent("https://decapi.me/twitch/uptime/" + CHANNEL);
 
-<div>
-<div class="badge">🔥 OFFLINE</div>
-<h2 class="offlineTitle">MaurizoGameur est hors ligne</h2>
+    const dot = document.getElementById("dot");
+    const statusText = document.getElementById("statusText");
+    const subText = document.getElementById("subText");
 
-<div class="offlineButtons">
-<a class="fireBtn" href="https://www.twitch.tv/maurizogameur" target="_blank">Twitch</a>
-<a class="fireBtn fireBtn--ghost" href="https://discord.gg/7ARVD5hzR9" target="_blank">Discord</a>
-<a class="fireBtn fireBtn--ghost"
-href="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/planning.png"
-target="_blank">Planning</a>
-<a class="fireBtn fireBtn--ghost"
-href="https://github.com/maurizoGameur" target="_blank">GitHub</a>
-</div>
+    const heroDot = document.getElementById("heroDot");
+    const heroStatus = document.getElementById("heroStatus");
 
-</div>
-</div>
-</div>
+    function setState(isLive){
+      // top bar
+      dot.classList.toggle("live", isLive);
+      dot.classList.toggle("off", !isLive);
+      statusText.textContent = isLive ? "LIVE" : "OFFLINE";
+      subText.textContent = isLive ? "🔴 En direct sur Twitch !" : "Dofus • Pokémon • Communauté";
 
-</div>
-
-<!-- CHAT -->
-<div class="chatWrap" id="chatWrap">
-<iframe
-class="chat"
-src="https://www.twitch.tv/embed/maurizogameur/chat?parent=maurizogameur.github.io">
-</iframe>
-</div>
-
-</section>
-
-</main>
-
-<script>
-/* CHAT toggle */
-const btnChat=document.getElementById("toggleChat");
-const chatWrap=document.getElementById("chatWrap");
-let open=false;
-btnChat.onclick=()=>{
-  open=!open;
-  chatWrap.style.display=open?"block":"none";
-};
-
-/* LIVE CHECK */
-const overlay=document.getElementById("offlineOverlay");
-const dot=document.getElementById("dot");
-const status=document.getElementById("statusText");
-const liveBtn=document.getElementById("liveBtn");
-
-const url="https://api.allorigins.win/raw?url="+
-encodeURIComponent("https://decapi.me/twitch/uptime/maurizogameur");
-
-async function check(){
-  try{
-    const t=(await (await fetch(url)).text()).toLowerCase();
-    const live=!t.includes("offline");
-
-    if(live){
-      overlay.style.display="none";
-      dot.classList.add("live");
-      status.textContent="LIVE";
-      liveBtn.classList.add("show");
-    }else{
-      overlay.style.display="block";
-      dot.classList.add("off");
-      status.textContent="OFFLINE";
-      liveBtn.classList.remove("show");
+      // hero badge
+      heroDot.classList.toggle("live", isLive);
+      heroDot.classList.toggle("off", !isLive);
+      heroStatus.textContent = isLive ? "Stream ON" : "Stream OFF";
     }
-  }catch(e){}
-}
 
-check();
-setInterval(check,60000);
+    async function checkLive(){
+      try{
+        const res = await fetch(UPTIME_URL, { cache: "no-store" });
+        const txt = (await res.text()).trim().toLowerCase();
+        const isLive = !txt.includes("offline");
+        setState(isLive);
+      }catch(e){
+        // si erreur, on ne change rien
+        console.log("checkLive error:", e);
+      }
+    }
 
-/* DEBUG */
-document.addEventListener("keydown",e=>{
-  if(e.key==="l")overlay.style.display="none";
-  if(e.key==="o")overlay.style.display="block";
-});
-</script>
-
+    checkLive();
+    setInterval(checkLive, 60000);
+  </script>
 </body>
 </html>
