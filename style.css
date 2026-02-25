@@ -538,4 +538,236 @@ index.html
   .liveGrid{grid-template-columns: 1fr}
   .chatBox{min-height: 520px}
 }
+/* =========================================================
+   🔥 HERO BANNER V2 — FireRed x Dofus (LÉGER + ANIMÉ)
+   Colle ce bloc TOUT EN BAS de style.css
+   ========================================================= */
+
+:root{
+  --fr-dark:#1a0f0f;
+  --fr-dred:#5c0b0b;
+  --fr-red:#b91c1c;
+  --fr-orange:#ff7a18;
+  --fr-glow:#ffd166;
+  --fr-ink:#fff3e8;
+}
+
+.heroV2{
+  height: clamp(280px, 42vw, 520px);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+
+  /* bordure + glow */
+  border: 2px solid rgba(255,209,102,.65);
+  box-shadow:
+    0 22px 70px rgba(0,0,0,.55),
+    0 0 0 1px rgba(255,255,255,.10),
+    0 0 40px rgba(255,122,24,.18),
+    0 0 90px rgba(255,209,102,.10);
+}
+
+/* ✅ TON BACKGROUND IMAGE (plus lumineux + fire overlay) */
+.heroV2::before{
+  content:"";
+  position:absolute; inset:0;
+
+  background:
+    /* Fire glow (vivant) */
+    radial-gradient(120% 85% at 20% 15%, rgba(255,209,102,.22), transparent 60%),
+    radial-gradient(110% 90% at 85% 25%, rgba(255,122,24,.18), transparent 62%),
+    radial-gradient(120% 110% at 50% 120%, rgba(185,28,28,.18), transparent 60%),
+
+    /* ta bannière en dessous */
+    url("https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/banner.png")
+    center / cover no-repeat;
+
+  /* 💡 boost luminosité */
+  filter: brightness(1.25) contrast(1.08) saturate(1.12);
+  transform: scale(1.02);
+}
+
+/* texture pixel + scanlines animées (léger) */
+.heroV2::after{
+  content:"";
+  position:absolute; inset:-80px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 8px),
+    repeating-linear-gradient(180deg, rgba(0,0,0,.14) 0 2px, transparent 2px 6px),
+    radial-gradient(closest-side at 30% 20%, rgba(255,209,102,.14), transparent 62%),
+    radial-gradient(closest-side at 70% 70%, rgba(255,122,24,.10), transparent 62%);
+  opacity:.55;
+  pointer-events:none;
+  mix-blend-mode: overlay;
+  animation: heroScan 7.5s linear infinite;
+}
+
+@keyframes heroScan{
+  0%{ transform: translateY(0px); }
+  50%{ transform: translateY(8px); }
+  100%{ transform: translateY(0px); }
+}
+
+/* voile pour lisibilité du texte */
+.heroV2Shade{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55));
+  z-index:1;
+}
+
+/* top row (badge + CTA) */
+.heroV2Top{
+  position:absolute; top:10px; left:12px; right:12px;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  z-index:3;
+  font-weight: 1000;
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 10px 28px rgba(0,0,0,.65);
+}
+.heroV2Badge{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 10px;
+  border-radius:999px;
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(6px);
+}
+.heroV2CTA{
+  font-size: 13px;
+  color: var(--fr-glow);
+  text-decoration:none;
+}
+.heroV2CTA:hover{ text-decoration: underline; }
+
+/* centre texte */
+.heroV2Center{
+  position:absolute; inset:0;
+  display:grid; place-items:center;
+  padding: 18px;
+  z-index:3;
+  text-align:center;
+}
+
+.heroV2Title{
+  margin:0;
+  font-weight: 1000;
+  letter-spacing: .02em;
+  font-size: clamp(44px, 8vw, 110px);
+  line-height: 1;
+  text-transform: uppercase;
+
+  /* contour + shadow (style e-sport) */
+  -webkit-text-stroke: 10px rgba(0,0,0,.62);
+  paint-order: stroke fill;
+  text-shadow:
+    0 14px 40px rgba(0,0,0,.55),
+    0 0 24px rgba(255,209,102,.18);
+}
+
+/* remplissage doré + blanc */
+.heroV2Title span{
+  background: linear-gradient(180deg, #fff 0%, #fff 45%, rgba(255,209,102,.95) 100%);
+  -webkit-background-clip: text;
+  background-clip:text;
+  color: transparent;
+}
+
+.heroV2Sub{
+  margin: 12px 0 0;
+  color: rgba(255,255,255,.88);
+  font-weight: 900;
+  text-shadow: 0 12px 30px rgba(0,0,0,.6);
+}
+
+/* 🔥 Particules feu (ultra léger) */
+.heroV2Sparks{ position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.95; }
+.heroV2Spark{
+  position:absolute;
+  width:6px; height:6px; border-radius:2px;
+  background: var(--fr-glow);
+  box-shadow: 0 0 0 2px rgba(255,122,24,.25);
+  animation: heroFloat 4.8s ease-in-out infinite;
+  opacity:.8;
+}
+@keyframes heroFloat{
+  0%{ transform: translateY(10px) scale(1); }
+  50%{ transform: translateY(-14px) scale(1.06); }
+  100%{ transform: translateY(10px) scale(1); }
+}
+
+/* 🎮 Pokéball + Dofus (CSS only, pas d’images) */
+.heroV2Orb{
+  position:absolute;
+  width:26px; height:26px;
+  border-radius:999px;
+  border:2px solid rgba(0,0,0,.45);
+  z-index:2;
+  opacity:.78;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
+  animation: heroDrift 9s ease-in-out infinite;
+}
+.heroV2Orb.poke{
+  background:
+    radial-gradient(circle at 50% 50%, #fff 0 28%, transparent 29%),
+    linear-gradient(#ff2d2d 0 50%, #ffffff 50% 100%);
+  box-shadow: 0 0 0 2px rgba(255,209,102,.10), 0 0 18px rgba(255,122,24,.10);
+}
+.heroV2Orb.poke::after{
+  content:"";
+  position:absolute; left:50%; top:50%;
+  width:7px;height:7px;border-radius:999px;
+  transform: translate(-50%,-50%);
+  background:#0f0f0f;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.72);
+  opacity:.85;
+}
+
+.heroV2Orb.dofus{
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,.75), transparent 45%),
+    radial-gradient(circle at 60% 60%, rgba(76,201,240,.22), transparent 55%),
+    linear-gradient(180deg, rgba(255,209,102,.95), rgba(255,122,24,.88));
+  box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 0 18px rgba(255,209,102,.14);
+  border-radius: 10px 999px 999px 999px; /* petit look “oeuf” */
+}
+
+@keyframes heroDrift{
+  0%{ transform: translate(0,0) rotate(0deg); }
+  50%{ transform: translate(10px,-16px) rotate(6deg); }
+  100%{ transform: translate(0,0) rotate(0deg); }
+}
+
+/* ✅ live + chat dessous (si pas déjà dans ton CSS) */
+.liveGrid{
+  margin-top: 14px;
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+.liveBox{
+  width:100%;
+  aspect-ratio: 16 / 9;
+  min-height: 420px;
+  border:0;
+  border-radius: 16px;
+  background:#000;
+  display:block;
+}
+.chatBox{
+  width:100%;
+  height: 100%;
+  min-height: 420px;
+  border:0;
+  border-radius: 16px;
+  background:#000;
+  display:block;
+}
+
+@media (max-width: 980px){
+  .heroV2{height: 320px}
+  .liveGrid{grid-template-columns: 1fr}
+  .chatBox{min-height: 520px}
+}
+
 
