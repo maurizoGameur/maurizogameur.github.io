@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MaurizoGameur • Live</title>
+  <meta name="description" content="MaurizoGameur • Stream Dofus & Pokémon • Live + Chat Twitch" />
 
   <style>
     *{box-sizing:border-box}
@@ -20,13 +21,13 @@
       --r: 20px;
 
       /* FireRed palette */
-      --dark:#1a0f0f;
-      --dred:#5c0b0b;
-      --red:#b91c1c;
-      --orange:#ff7a18;
-      --glow:#ffd166;
-      --ink:#fff3e8;
-      --mut: rgba(255,243,232,.75);
+      --fr-dark:#1a0f0f;
+      --fr-dred:#5c0b0b;
+      --fr-red:#b91c1c;
+      --fr-orange:#ff7a18;
+      --fr-glow:#ffd166;
+      --fr-ink:#fff3e8;
+      --mut: rgba(234,240,255,.72);
 
       --panel: rgba(255,255,255,.05);
       --border: rgba(255,255,255,.10);
@@ -49,14 +50,19 @@
       margin-bottom: 12px;
     }
     .left{display:flex;align-items:center;gap:10px;min-width:0}
-    .dot{width:12px;height:12px;border-radius:999px;background:rgba(255,255,255,.35)}
+    .dot{width:12px;height:12px;border-radius:999px;background:rgba(255,255,255,.35);flex:0 0 auto}
     .dot.live{background:#5CFF8F; box-shadow:0 0 18px rgba(92,255,143,.35)}
     .dot.off{
-      background: linear-gradient(180deg, var(--glow), var(--orange), var(--red));
+      background: linear-gradient(180deg, var(--fr-glow), var(--fr-orange), var(--fr-red));
       box-shadow: 0 0 18px rgba(255,122,24,.28);
     }
     .status{font-weight:1000;letter-spacing:.2px;white-space:nowrap}
-    .small{color:rgba(234,240,255,.72);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:62vw}
+    .small{
+      color:rgba(234,240,255,.72);
+      font-size:13px;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      max-width:60vw;
+    }
 
     .right{display:flex;align-items:center;gap:10px;flex-wrap:wrap; justify-content:flex-end;}
     .btn{
@@ -74,7 +80,7 @@
       box-shadow: 0 12px 34px rgba(76,201,240,.18);
     }
 
-    /* ===== CARDS ===== */
+    /* ===== CARD ===== */
     .frame{
       border-radius: var(--r);
       background: rgba(255,255,255,.04);
@@ -82,7 +88,6 @@
       box-shadow: var(--shadow);
       padding: 12px;
     }
-
     h1{
       margin: 0 0 10px;
       font-size: 18px;
@@ -90,53 +95,71 @@
       letter-spacing:.2px;
     }
 
-    /* ===== HERO COVER (exemple) ===== */
-    .hero{
-      border-radius: 18px;
-      overflow:hidden;
-      border: 2px solid rgba(255,209,102,.6);
-      box-shadow: 0 18px 70px rgba(0,0,0,.55);
-      position:relative;
-      background: #000;
+    /* =========================================================
+       🔥 HERO BANNER V2 — FireRed x Dofus (LÉGER + ANIMÉ)
+       ========================================================= */
+    .heroV2{
+      height: clamp(280px, 42vw, 520px);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
       margin-bottom: 12px;
-      height: clamp(260px, 46vw, 520px);
+
+      border: 2px solid rgba(255,209,102,.65);
+      box-shadow:
+        0 22px 70px rgba(0,0,0,.55),
+        0 0 0 1px rgba(255,255,255,.10),
+        0 0 40px rgba(255,122,24,.18),
+        0 0 90px rgba(255,209,102,.10);
     }
 
-    /* Remplace l'image ici */
-    .hero::before{
+    .heroV2::before{
       content:"";
       position:absolute; inset:0;
       background:
-        radial-gradient(120% 90% at 20% 10%, rgba(0,0,0,.10), rgba(0,0,0,.65) 70%),
-        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55)),
-        url("YOUR_BANNER_IMAGE_URL") center/cover no-repeat;
-      filter: saturate(1.05) contrast(1.05);
+        radial-gradient(120% 85% at 20% 15%, rgba(255,209,102,.22), transparent 60%),
+        radial-gradient(110% 90% at 85% 25%, rgba(255,122,24,.18), transparent 62%),
+        radial-gradient(120% 110% at 50% 120%, rgba(185,28,28,.18), transparent 60%),
+        url("https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/banner.png")
+        center / cover no-repeat;
+      filter: brightness(1.25) contrast(1.08) saturate(1.12);
       transform: scale(1.02);
     }
 
-    /* léger grain */
-    .hero::after{
+    .heroV2::after{
       content:"";
-      position:absolute; inset:-60px;
+      position:absolute; inset:-80px;
       background:
-        repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 2px, transparent 2px 8px),
-        repeating-linear-gradient(180deg, rgba(0,0,0,.18) 0 2px, transparent 2px 6px);
-      opacity:.45;
+        repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 8px),
+        repeating-linear-gradient(180deg, rgba(0,0,0,.14) 0 2px, transparent 2px 6px),
+        radial-gradient(closest-side at 30% 20%, rgba(255,209,102,.14), transparent 62%),
+        radial-gradient(closest-side at 70% 70%, rgba(255,122,24,.10), transparent 62%);
+      opacity:.55;
       pointer-events:none;
       mix-blend-mode: overlay;
+      animation: heroScan 7.5s linear infinite;
+    }
+    @keyframes heroScan{
+      0%{ transform: translateY(0px); }
+      50%{ transform: translateY(8px); }
+      100%{ transform: translateY(0px); }
     }
 
-    .heroTop{
+    .heroV2Shade{
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55));
+      z-index:1;
+    }
+
+    .heroV2Top{
       position:absolute; top:10px; left:12px; right:12px;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      z-index:2;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      z-index:3;
+      font-weight: 1000;
       color: rgba(255,255,255,.92);
       text-shadow: 0 10px 28px rgba(0,0,0,.65);
-      font-weight: 900;
-      font-size: 14px;
     }
-    .heroBadge{
+    .heroV2Badge{
       display:inline-flex; align-items:center; gap:8px;
       padding:8px 10px;
       border-radius:999px;
@@ -144,66 +167,112 @@
       border: 1px solid rgba(255,255,255,.14);
       backdrop-filter: blur(6px);
     }
-    .heroCTA{
+    .heroV2CTA{
       font-size: 13px;
-      color: var(--glow);
+      color: var(--fr-glow);
       text-decoration:none;
       font-weight: 1000;
     }
-    .heroCTA:hover{ text-decoration: underline; }
+    .heroV2CTA:hover{ text-decoration: underline; }
 
-    .heroCenter{
+    .heroV2Center{
       position:absolute; inset:0;
-      display:grid;
-      place-items:center;
+      display:grid; place-items:center;
       padding: 18px;
-      z-index:2;
+      z-index:3;
       text-align:center;
     }
 
-    /* Gros texte style “masque” / stroke */
-    .heroTitle{
+    .heroV2Title{
       margin:0;
       font-weight: 1000;
       letter-spacing: .02em;
       font-size: clamp(44px, 8vw, 110px);
       line-height: 1;
-      color: #fff;
       text-transform: uppercase;
-
-      /* effet “cartoon” (contour) */
-      -webkit-text-stroke: 10px rgba(0,0,0,.65);
+      -webkit-text-stroke: 10px rgba(0,0,0,.62);
       paint-order: stroke fill;
-
-      /* ombres */
       text-shadow:
         0 14px 40px rgba(0,0,0,.55),
-        0 0 18px rgba(255,209,102,.18);
+        0 0 24px rgba(255,209,102,.18);
     }
-
-    /* remplissage “doré” en overlay */
-    .heroTitle span{
-      background: linear-gradient(180deg, #fff 0%, #fff 48%, rgba(255,209,102,.95) 100%);
+    .heroV2Title span{
+      background: linear-gradient(180deg, #fff 0%, #fff 45%, rgba(255,209,102,.95) 100%);
       -webkit-background-clip: text;
       background-clip:text;
       color: transparent;
     }
 
-    .heroSub{
+    .heroV2Sub{
       margin: 12px 0 0;
-      color: rgba(255,255,255,.86);
-      font-weight: 800;
+      color: rgba(255,255,255,.88);
+      font-weight: 900;
       text-shadow: 0 12px 30px rgba(0,0,0,.6);
     }
 
-    /* ===== LIVE + CHAT GRID ===== */
+    /* Particules feu */
+    .heroV2Sparks{ position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.95; }
+    .heroV2Spark{
+      position:absolute;
+      width:6px; height:6px; border-radius:2px;
+      background: var(--fr-glow);
+      box-shadow: 0 0 0 2px rgba(255,122,24,.25);
+      animation: heroFloat 4.8s ease-in-out infinite;
+      opacity:.8;
+    }
+    @keyframes heroFloat{
+      0%{ transform: translateY(10px) scale(1); }
+      50%{ transform: translateY(-14px) scale(1.06); }
+      100%{ transform: translateY(10px) scale(1); }
+    }
+
+    /* Orbs Pokéball + Dofus */
+    .heroV2Orb{
+      position:absolute;
+      width:26px; height:26px;
+      border-radius:999px;
+      border:2px solid rgba(0,0,0,.45);
+      z-index:2;
+      opacity:.78;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
+      animation: heroDrift 9s ease-in-out infinite;
+    }
+    .heroV2Orb.poke{
+      background:
+        radial-gradient(circle at 50% 50%, #fff 0 28%, transparent 29%),
+        linear-gradient(#ff2d2d 0 50%, #ffffff 50% 100%);
+      box-shadow: 0 0 0 2px rgba(255,209,102,.10), 0 0 18px rgba(255,122,24,.10);
+    }
+    .heroV2Orb.poke::after{
+      content:"";
+      position:absolute; left:50%; top:50%;
+      width:7px;height:7px;border-radius:999px;
+      transform: translate(-50%,-50%);
+      background:#0f0f0f;
+      box-shadow: 0 0 0 2px rgba(255,255,255,.72);
+      opacity:.85;
+    }
+    .heroV2Orb.dofus{
+      background:
+        radial-gradient(circle at 35% 35%, rgba(255,255,255,.75), transparent 45%),
+        radial-gradient(circle at 60% 60%, rgba(76,201,240,.22), transparent 55%),
+        linear-gradient(180deg, rgba(255,209,102,.95), rgba(255,122,24,.88));
+      box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 0 18px rgba(255,209,102,.14);
+      border-radius: 10px 999px 999px 999px;
+    }
+    @keyframes heroDrift{
+      0%{ transform: translate(0,0) rotate(0deg); }
+      50%{ transform: translate(10px,-16px) rotate(6deg); }
+      100%{ transform: translate(0,0) rotate(0deg); }
+    }
+
+    /* ===== LIVE + CHAT ===== */
     .liveGrid{
       margin-top: 10px;
       display:grid;
       grid-template-columns: 2fr 1fr;
       gap: 12px;
     }
-
     .liveBox{
       width:100%;
       aspect-ratio: 16 / 9;
@@ -213,7 +282,6 @@
       background:#000;
       display:block;
     }
-
     .chatBox{
       width:100%;
       height: 100%;
@@ -224,10 +292,9 @@
       display:block;
     }
 
-    /* Responsive */
     @media (max-width: 980px){
       .small{display:none}
-      .hero{height: 320px}
+      .heroV2{height: 320px}
       .liveGrid{grid-template-columns: 1fr}
       .chatBox{min-height: 520px}
     }
@@ -252,20 +319,39 @@
       </div>
     </div>
 
-    <!-- HERO COVER (comme ton exemple) -->
-    <section class="hero" aria-label="Cover">
-      <div class="heroTop">
-        <div class="heroBadge">
+    <!-- HERO BANNER V2 -->
+    <section class="heroV2" aria-label="Cover">
+      <div class="heroV2Shade"></div>
+
+      <div class="heroV2Top">
+        <div class="heroV2Badge">
           <span class="dot off" id="heroDot" aria-hidden="true"></span>
           <span id="heroStatus">Stream OFF</span>
         </div>
-        <a class="heroCTA" href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">Rejoins-moi sur Twitch !</a>
+
+        <a class="heroV2CTA" href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">
+          Rejoins-moi sur Twitch !
+        </a>
       </div>
 
-      <div class="heroCenter">
+      <!-- Particules -->
+      <div class="heroV2Sparks" aria-hidden="true">
+        <span class="heroV2Spark" style="left:18%;top:30%;animation-duration:6.2s;opacity:.55"></span>
+        <span class="heroV2Spark" style="left:32%;top:68%;animation-duration:5.1s;opacity:.70"></span>
+        <span class="heroV2Spark" style="left:62%;top:24%;animation-duration:6.8s;opacity:.60"></span>
+        <span class="heroV2Spark" style="left:78%;top:62%;animation-duration:5.6s;opacity:.75"></span>
+        <span class="heroV2Spark" style="left:90%;top:32%;animation-duration:7.1s;opacity:.50"></span>
+      </div>
+
+      <!-- Orbs -->
+      <span class="heroV2Orb poke"  style="left:10%;top:22%;animation-duration:9.4s"></span>
+      <span class="heroV2Orb dofus" style="left:86%;top:28%;animation-duration:10.2s"></span>
+      <span class="heroV2Orb poke"  style="left:22%;top:74%;animation-duration:11.0s;opacity:.55"></span>
+
+      <div class="heroV2Center">
         <div>
-          <h2 class="heroTitle"><span>MAURIZOGAMEUR</span></h2>
-          <p class="heroSub">LE STREAMER À L’ORIGINE DE CE SITE • DOFUS • POKÉMON</p>
+          <h2 class="heroV2Title"><span>MAURIZOGAMEUR</span></h2>
+          <p class="heroV2Sub">LE STREAMER À L’ORIGINE DE CE SITE • DOFUS • POKÉMON</p>
         </div>
       </div>
     </section>
@@ -292,7 +378,7 @@
 
   </main>
 
-  <!-- LIVE/OFFLINE auto (juste pour le point + texte, sans cacher la cover) -->
+  <!-- ✅ LIVE/OFF auto (juste badge + top bar) -->
   <script>
     const CHANNEL = "maurizogameur";
     const UPTIME_URL =
@@ -307,13 +393,11 @@
     const heroStatus = document.getElementById("heroStatus");
 
     function setState(isLive){
-      // top bar
       dot.classList.toggle("live", isLive);
       dot.classList.toggle("off", !isLive);
       statusText.textContent = isLive ? "LIVE" : "OFFLINE";
       subText.textContent = isLive ? "🔴 En direct sur Twitch !" : "Dofus • Pokémon • Communauté";
 
-      // hero badge
       heroDot.classList.toggle("live", isLive);
       heroDot.classList.toggle("off", !isLive);
       heroStatus.textContent = isLive ? "Stream ON" : "Stream OFF";
@@ -321,12 +405,11 @@
 
     async function checkLive(){
       try{
-        const res = await fetch(UPTIME_URL, { cache: "no-store" });
+        const res = await fetch(UPTIME_URL, { cache:"no-store" });
         const txt = (await res.text()).trim().toLowerCase();
-        const isLive = !txt.includes("offline");
-        setState(isLive);
+        setState(!txt.includes("offline"));
       }catch(e){
-        // si erreur, on ne change rien
+        // si erreur réseau, on ne change rien
         console.log("checkLive error:", e);
       }
     }
