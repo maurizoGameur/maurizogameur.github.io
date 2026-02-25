@@ -13,7 +13,7 @@ jobs:
         env:
           WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
-          IMG="https://raw.githubusercontent.com/MaurizoGameur/NOM-REPO/main/planning.png"
+          IMG="https://raw.githubusercontent.com/MaurizoGameur/maurizogameur.github.io/main/planning.png"
           
           curl -H "Content-Type: application/json" \
           -X POST \
