@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MaurizoGameur • Live</title>
+  <meta name="description" content="MaurizoGameur • Stream Dofus & Pokémon • Twitch + Discord + Planning" />
+
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#070a12;
+      color:#eaf0ff;
+    }
+
+    :root{
+      --shadow: 0 22px 70px rgba(0,0,0,.55);
+      --r: 20px;
+
+      /* 🔥 FireRed palette */
+      --dark:#1a0f0f;
+      --dred:#5c0b0b;
+      --red:#b91c1c;
+      --orange:#ff7a18;
+      --glow:#ffd166;
+      --ink:#fff3e8;
+      --mut: rgba(255,243,232,.75);
+
+      /* UI */
+      --panel: rgba(255,255,255,.05);
+      --border: rgba(255,255,255,.10);
+    }
+
+    .wrap{
+      width: min(1500px, calc(100% - 24px));
+      margin: 18px auto 28px;
+    }
+
+    /* Top bar */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+    }
+
+    .left{display:flex;align-items:center;gap:10px;min-width:0}
+    .dot{
+      width:12px;height:12px;border-radius:999px;
+      background: rgba(255,255,255,.35);
+      box-shadow: 0 0 18px rgba(255,255,255,.10);
+      flex:0 0 auto;
+    }
+    .dot.live{
+      background:#5CFF8F;
+      box-shadow: 0 0 18px rgba(92,255,143,.35);
+    }
+    .dot.off{
+      background: linear-gradient(180deg, var(--glow), var(--orange), var(--red));
+      box-shadow: 0 0 18px rgba(255,122,24,.28);
+    }
+
+    .status{font-weight:1000;letter-spacing:.2px;white-space:nowrap}
+    .small{
+      color:rgba(234,240,255,.72);
+      font-size:13px;white-space:nowrap;
+      overflow:hidden;text-overflow:ellipsis;max-width:62vw;
+    }
+    .right{display:flex;align-items:center;gap:10px;flex-wrap:wrap; justify-content:flex-end;}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding: 10px 14px;border-radius: 999px;text-decoration:none;
+      font-weight:900;border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);color:#eaf0ff;
+      cursor:pointer;user-select:none;
+      transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn--twitch{
+      color:#081018;
+      background: linear-gradient(90deg, #4cc9f0, #f72585);
+      box-shadow: 0 12px 34px rgba(76,201,240,.18);
+    }
+
+    /* 🔴 LIVE button auto */
+    .btn--live{
+      display:none;
+      color:#1a0707;
+      background: linear-gradient(90deg, var(--glow), var(--orange));
+      border: 1px solid rgba(0,0,0,.2);
+      box-shadow: 0 14px 40px rgba(255,122,24,.22);
+    }
+    .btn--live.show{display:inline-flex}
+
+    /* Frame */
+    .frame{
+      border-radius: var(--r);
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.09);
+      box-shadow: var(--shadow);
+      padding: 12px;
+    }
+    h1{
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 1000;
+      letter-spacing:.2px;
+    }
+
+    /* Player */
+    .playerWrap{position:relative}
+    .player{
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 520px;
+      border: 0;
+      border-radius: 16px;
+      background:#000;
+      display:block;
+    }
+
+    /* Chat toggle */
+    .chatWrap{
+      margin-top: 12px;
+      display:none;
+      border-top: 1px dashed rgba(255,255,255,.14);
+      padding-top: 12px;
+    }
+    .chat{
+      width: 100%;
+      height: 520px;
+      border: 0;
+      border-radius: 16px;
+      background:#000;
+      display:block;
+    }
+
+    /* ========== OFFLINE FireRed overlay ========== */
+    .offlineOverlay{
+      position:absolute;
+      inset: 0;
+      border-radius: 16px;
+      overflow:hidden;
+      display:none;
+      background:
+        radial-gradient(120% 90% at 20% 0%, rgba(255,255,255,.12), transparent 60%),
+        radial-gradient(120% 100% at 80% 20%, rgba(0,0,0,.28), transparent 62%),
+        linear-gradient(180deg, var(--dred), var(--dark));
+    }
+
+    /* 🔥 GROS GLOW (style streamer) */
+    .offlineOverlay::after{
+      content:"";
+      position:absolute; inset:-2px;
+      border-radius: 18px;
+      pointer-events:none;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.10),
+        0 0 40px rgba(255,122,24,.18),
+        0 0 90px rgba(255,209,102,.10);
+      mix-blend-mode: screen;
+    }
+
+    /* texture + scanlines */
+    .offlineOverlay::before{
+      content:"";
+      position:absolute; inset:-40px;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 2px, transparent 2px 8px),
+        repeating-linear-gradient(180deg, rgba(0,0,0,.16) 0 2px, transparent 2px 6px),
+        radial-gradient(closest-side at 30% 20%, rgba(255,209,102,.16), transparent 62%),
+        radial-gradient(closest-side at 70% 70%, rgba(255,122,24,.14), transparent 62%);
+      opacity:.95;
+      pointer-events:none;
+    }
+
+    .offlineInner{
+      position:absolute; inset:0;
+      display:grid;
+      place-items:center;
+      padding: 18px;
+      text-align:center;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--ink);
+      box-shadow: 0 0 0 2px rgba(255,122,24,.12), 0 14px 40px rgba(0,0,0,.35);
+      margin-bottom: 14px;
+      backdrop-filter: blur(6px);
+    }
+    .flameDot{
+      width:12px;height:12px;border-radius:3px;
+      background: linear-gradient(180deg, var(--glow), var(--orange), var(--red));
+      box-shadow: 0 0 18px rgba(255,209,102,.25);
+    }
+    .offlineTitle{
+      font-weight: 1100;
+      font-size: clamp(26px, 4vw, 54px);
+      margin: 0 0 8px;
+      color: var(--ink);
+      text-shadow: 0 10px 32px rgba(0,0,0,.50);
+    }
+    .offlineSub{
+      margin: 0 0 16px;
+      color: rgba(255,243,232,.86);
+      font-size: 15px;
+    }
+
+    /* Buttons center */
+    .offlineButtons{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top: 12px;
+    }
+    .fireBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      text-decoration:none;
+      font-weight: 1000;
+      font-size: 15px;
+      color: #160a06;
+      border: 1px solid rgba(0,0,0,.25);
+      background: linear-gradient(90deg, var(--glow), var(--orange));
+      box-shadow: 0 16px 46px rgba(255,122,24,.18);
+      transition: transform .12s ease;
+    }
+    .fireBtn:hover{transform: translateY(-1px)}
+    .fireBtn--ghost{
+      color: var(--ink);
+      background: rgba(0,0,0,.26);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: none;
+    }
+
+    .offlineFooter{
+      margin-top: 14px;
+      color: rgba(255,243,232,.74);
+      font-size: 13px;
+    }
+
+    /* 🔥 Sparks */
+    .sparks{
+      position:absolute; inset:0;
+      pointer-events:none;
+      opacity:.9;
+    }
+    .spark{
+      position:absolute;
+      width:6px;height:6px;border-radius:2px;
+      background: var(--glow);
+      box-shadow: 0 0 0 2px rgba(255,122,24,.25);
+      animation: float 4.2s linear infinite;
+      opacity:.9;
+    }
+    .spark:nth-child(2){left:18%; top:70%; animation-duration:5.4s; opacity:.65}
+    .spark:nth-child(3){left:72%; top:62%; animation-duration:4.8s; opacity:.75}
+    .spark:nth-child(4){left:82%; top:30%; animation-duration:6.2s; opacity:.6}
+    .spark:nth-child(5){left:10%; top:28%; animation-duration:5.9s; opacity:.55}
+
+    @keyframes float{
+      0%{transform: translateY(12px) scale(1)}
+      50%{transform: translateY(-14px) scale(1.05)}
+      100%{transform: translateY(12px) scale(1)}
+    }
+
+    /* 🎮 Pokémon-like animation (simple + safe) */
+    .pokeFloat{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.95;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
+    }
+
+    .poke{
+      position:absolute;
+      width:22px;height:22px;
+      border-radius:999px;
+      background:
+        radial-gradient(circle at 50% 50%, #fff 0 28%, transparent 29%),
+        linear-gradient(#ff2d2d 0 50%, #ffffff 50% 100%);
+      border: 2px solid rgba(0,0,0,.45);
+      box-shadow:
+        0 0 0 2px rgba(255,209,102,.12),
+        0 0 18px rgba(255,122,24,.12);
+      animation: drift 7.5s ease-in-out infinite;
+      opacity:.85;
+    }
+
+    .poke::after{
+      content:"";
+      position:absolute; left:50%; top:50%;
+      width:6px;height:6px;border-radius:999px;
+      transform: translate(-50%,-50%);
+      background:#0f0f0f;
+      box-shadow: 0 0 0 2px rgba(255,255,255,.72);
+      opacity:.85;
+    }
+
+    .poke.p2{left:12%; top:22%; transform: scale(1.05); animation-duration:8.4s; opacity:.7}
+    .poke.p3{left:78%; top:26%; transform: scale(.95); animation-duration:9.2s; opacity:.65}
+    .poke.p4{left:22%; top:72%; transform: scale(.9); animation-duration:10.1s; opacity:.55}
+    .poke.p5{left:86%; top:66%; transform: scale(1.1); animation-duration:8.8s; opacity:.6}
+
+    @keyframes drift{
+      0%{ transform: translateY(0px) translateX(0px) rotate(0deg); }
+      50%{ transform: translateY(-16px) translateX(10px) rotate(6deg); }
+      100%{ transform: translateY(0px) translateX(0px) rotate(0deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .wrap{width: calc(100% - 16px); margin: 12px auto 20px;}
+      .small{display:none;}
+      .player{min-height: 280px;}
+      .chat{height: 420px;}
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="left">
+        <span class="dot off" id="dot" aria-hidden="true"></span>
+        <span class="status" id="statusText">OFFLINE</span>
+        <span class="small" id="subText">Dofus • Pokémon • MaurizoGameur</span>
+      </div>
+
+      <div class="right">
+        <button class="btn" id="toggleChat" type="button">💬 Chat</button>
+
+        <!-- 🔴 bouton LIVE auto -->
+        <a class="btn btn--live" id="liveBtn"
+           href="https://www.twitch.tv/maurizogameur"
+           target="_blank" rel="noreferrer">
+          🔴 LIVE sur Twitch
+        </a>
+
+        <a class="btn btn--twitch"
+           href="https://www.twitch.tv/maurizogameur"
+           target="_blank" rel="noreferrer">
+          Rejoins-moi sur Twitch !
+        </a>
+      </div>
+    </div>
+
+    <!-- MAIN FRAME -->
+    <section class="frame">
+      <h1>📺 Live Twitch</h1>
+
+      <div class="playerWrap">
+        <iframe
+          id="twitchPlayer"
+          class="player"
+          src="https://player.twitch.tv/?channel=maurizogameur&parent=localhost&parent=maurizogameur.github.io&autoplay=false"
+          allowfullscreen="true">
+        </iframe>
+
+        <!-- OFFLINE FireRed -->
+        <div class="offlineOverlay" id="offlineOverlay">
+
+          <!-- floating pokéballs -->
+          <div class="pokeFloat" aria-hidden="true">
+            <span class="poke p2"></span>
+            <span class="poke p3"></span>
+            <span class="poke p4"></span>
+            <span class="poke p5"></span>
+          </div>
+
+          <!-- sparks -->
+          <div class="sparks" aria-hidden="true">
+            <span class="spark" style="left:32%; top:34%"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+            <span class="spark"></span>
+          </div>
+
+          <div class="offlineInner">
+            <div>
+              <div class="badge"><span class="flameDot"></span> MODE OFFLINE • FIRE RED</div>
+              <h2 class="offlineTitle">MaurizoGameur est hors ligne</h2>
+              <p class="offlineSub">Rejoins la communauté et check le planning 🔥</p>
+
+              <div class="offlineButtons">
+                <a class="fireBtn" href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">🎥 Twitch</a>
+                <a class="fireBtn fireBtn--ghost" href="https://discord.gg/7ARVD5hzR9" target="_blank" rel="noreferrer">💬 Discord</a>
+                <a class="fireBtn fireBtn--ghost" href="https://raw.githubusercontent.com/maurizoGameur/maurizogameur-site/main/planning.png" target="_blank" rel="noreferrer">📅 Planning</a>
+                <a class="fireBtn fireBtn--ghost" href="https://github.com/maurizoGameur" target="_blank" rel="noreferrer">🧩 GitHub</a>
+              </div>
+
+              <div class="offlineFooter">Dofus • Pokémon • Events communauté</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAT -->
+      <div class="chatWrap" id="chatWrap">
+        <iframe
+          class="chat"
+          src="https://www.twitch.tv/embed/maurizogameur/chat?parent=localhost&parent=maurizogameur.github.io">
+        </iframe>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ✅ Chat toggle
+    const btnChat = document.getElementById("toggleChat");
+    const chatWrap = document.getElementById("chatWrap");
+    let chatOpen = false;
+    btnChat.addEventListener("click", () => {
+      chatOpen = !chatOpen;
+      chatWrap.style.display = chatOpen ? "block" : "none";
+      btnChat.textContent = chatOpen ? "❌ Fermer chat" : "💬 Chat";
+    });
+
+    // ✅ Auto LIVE/OFFLINE
+    const overlay = document.getElementById("offlineOverlay");
+    const dot = document.getElementById("dot");
+    const statusText = document.getElementById("statusText");
+    const subText = document.getElementById("subText");
+    const liveBtn = document.getElementById("liveBtn");
+
+    const CHANNEL = "maurizogameur";
+    const STATUS_URL = `https://decapi.me/twitch/streaming/${CHANNEL}`; // true/false
+
+    function setLive(isLive){
+      if(isLive){
+        overlay.style.display = "none";
+        dot.classList.remove("off");
+        dot.classList.add("live");
+        statusText.textContent = "LIVE";
+        subText.textContent = "🔴 En direct sur Twitch !";
+        liveBtn.classList.add("show");
+      }else{
+        overlay.style.display = "block";
+        dot.classList.remove("live");
+        dot.classList.add("off");
+        statusText.textContent = "OFFLINE";
+        subText.textContent = "Dofus • Pokémon • Communauté";
+        liveBtn.classList.remove("show");
+      }
+    }
+
+    async function checkStatus(){
+      try{
+        const res = await fetch(STATUS_URL, { cache: "no-store" });
+        const txt = (await res.text()).trim().toLowerCase();
+        setLive(txt === "true");
+      }catch(e){
+        // si l'API status est down, on garde OFFLINE par sécurité
+        setLive(false);
+      }
+    }
+
+    checkStatus();
+    setInterval(checkStatus, 60000); // check toutes les 60s
+  </script>
+</body>
+</html>
