@@ -1,10 +1,198 @@
-<img id="planningImg" class="img"
-     src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/planning.png?v=1"
-     alt="Planning stream MaurizoGameur" />
-<a class="btn"
-   href="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/planning.png?v=1"
-   target="_blank" rel="noreferrer">🖼️ Ouvrir l’image</a>
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MaurizoGameur • Planning</title>
 
-<a class="btn"
-   href="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/planning.png?v=1"
-   download>⬇️ Télécharger</a>
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#070a12;
+      color:#eaf0ff;
+      overflow-x:hidden;
+    }
+
+    :root{
+      --shadow: 0 22px 70px rgba(0,0,0,.55);
+      --r: 20px;
+      --border: rgba(255,255,255,.10);
+      --mut: rgba(234,240,255,.72);
+
+      --glow:#ffd166;
+      --orange:#ff7a18;
+      --red:#b91c1c;
+    }
+
+    .wrap{ width:min(1200px, calc(100% - 24px)); margin: 18px auto 28px; }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding: 10px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+    }
+    .left{display:flex;align-items:center;gap:10px;min-width:0}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.92);
+      font-weight:1000;
+      white-space:nowrap;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:3px;
+      background: linear-gradient(180deg, var(--glow), var(--orange), var(--red));
+      box-shadow: 0 0 18px rgba(255,122,24,.28);
+    }
+    .sub{margin:0;color:var(--mut);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55vw}
+
+    .right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:10px 14px;border-radius:999px;text-decoration:none;
+      font-weight:900;border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);color:#eaf0ff;
+      transition: transform .12s ease, background .12s ease;
+      cursor:pointer;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn--primary{
+      color:#160a06;
+      background: linear-gradient(90deg, var(--glow), var(--orange));
+      border:1px solid rgba(0,0,0,.25);
+      box-shadow: 0 16px 46px rgba(255,122,24,.18);
+    }
+
+    .card{
+      border-radius: var(--r);
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.09);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+    h1{margin:0 0 6px;font-size:18px;font-weight:1000}
+    .muted{color:var(--mut);font-size:13px;margin:0 0 12px}
+
+    .controls{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+
+    /* Zone scroll + zoom */
+    .viewer{
+      border-radius: 16px;
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      padding: 10px;
+      overflow:auto;
+      max-height: min(70vh, 720px);
+    }
+
+    .canvas{
+      transform-origin: top left;
+      display:inline-block;
+    }
+
+    img{
+      display:block;
+      max-width: 100%;
+      height:auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background:#000;
+    }
+
+    @media (max-width: 980px){
+      .sub{display:none}
+      .viewer{max-height: 68vh}
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+
+    <div class="topbar">
+      <div class="left">
+        <span class="badge"><span class="dot"></span> Planning • MaurizoGameur</span>
+        <p class="sub">Dofus • Pokémon • Communauté</p>
+      </div>
+
+      <div class="right">
+        <a class="btn" href="./index.html">🏠 Accueil</a>
+        <a class="btn" href="./mapage.html">👤 Ma page</a>
+        <a class="btn" href="https://discord.gg/7ARVD5hzR9" target="_blank" rel="noreferrer">💬 Discord</a>
+        <a class="btn btn--primary" href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">🎥 Twitch</a>
+      </div>
+    </div>
+
+    <section class="card">
+      <h1>🗓️ Planning stream</h1>
+      <p class="muted">Zoom + scroll + téléchargement — pratique sur mobile & PC ✅</p>
+
+      <div class="controls">
+        <button class="btn" id="zoomOut" type="button">➖ Zoom</button>
+        <button class="btn" id="zoomIn" type="button">➕ Zoom</button>
+        <button class="btn" id="reset" type="button">🔁 Reset</button>
+
+        <a class="btn" id="openImg" target="_blank" rel="noreferrer">🖼️ Ouvrir l’image</a>
+        <a class="btn" id="dlImg" download="planning.png">⬇️ Télécharger</a>
+      </div>
+
+      <div class="viewer" id="viewer">
+        <div class="canvas" id="canvas">
+          <img id="planImg" alt="Planning stream MaurizoGameur">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // ✅ Ton image planning (cache-buster pour voir la MAJ direct)
+    const IMG_BASE = "https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/planning.png";
+    const imgUrl = IMG_BASE + "?v=" + Date.now();
+
+    const planImg = document.getElementById("planImg");
+    const openImg = document.getElementById("openImg");
+    const dlImg = document.getElementById("dlImg");
+    planImg.src = imgUrl;
+    openImg.href = imgUrl;
+    dlImg.href = imgUrl;
+
+    // ✅ Zoom propre
+    let scale = 1;
+    const canvas = document.getElementById("canvas");
+
+    function apply(){
+      canvas.style.transform = "scale(" + scale + ")";
+    }
+
+    document.getElementById("zoomIn").addEventListener("click", ()=>{
+      scale = Math.min(3, +(scale + 0.15).toFixed(2));
+      apply();
+    });
+
+    document.getElementById("zoomOut").addEventListener("click", ()=>{
+      scale = Math.max(0.6, +(scale - 0.15).toFixed(2));
+      apply();
+    });
+
+    document.getElementById("reset").addEventListener("click", ()=>{
+      scale = 1;
+      apply();
+      document.getElementById("viewer").scrollTo({top:0,left:0,behavior:"smooth"});
+    });
+
+    apply();
+  </script>
+</body>
+</html>
