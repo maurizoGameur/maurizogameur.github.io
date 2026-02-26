@@ -396,3 +396,51 @@ iframe{display:block; border:0; width:100%}
   .suggestGrid{ grid-template-columns: 1fr; }
   .sugAvatar{ width:52px; height:52px; }
 }
+/* ================================
+   🔴 Pastille LIVE / OFF (streamers)
+================================ */
+
+.suggestPill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:6px;
+  width: fit-content;
+
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:1000;
+
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.25);
+  color: var(--mut);
+}
+
+.suggestPill .pDot{
+  width:10px;
+  height:10px;
+  border-radius:3px;
+  background: rgba(255,255,255,.28);
+  box-shadow: 0 0 0 2px rgba(0,0,0,.25);
+}
+
+/* état LIVE */
+.suggestItem.isLive .suggestPill{
+  color: #160a06;
+  background: linear-gradient(90deg, var(--glow), var(--orange));
+  border-color: rgba(0,0,0,.18);
+  box-shadow: 0 12px 26px rgba(255,122,24,.14);
+}
+.suggestItem.isLive .suggestPill .pDot{
+  background:#ff2d2d;
+  box-shadow: 0 0 18px rgba(255,45,45,.45);
+}
+
+/* état OFF */
+.suggestItem.isOff .suggestPill{
+  color: rgba(234,240,255,.70);
+}
+.suggestItem.isOff .suggestPill .pDot{
+  background: rgba(255,255,255,.22);
+}
