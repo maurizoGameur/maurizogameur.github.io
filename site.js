@@ -6,7 +6,7 @@ const UPTIME_URL =
   "https://api.allorigins.win/raw?url=" +
   encodeURIComponent("https://decapi.me/twitch/uptime/" + CHANNEL);
 
-function setMode(true){
+function setMode(isLive){
 
   // Classes globales
   document.documentElement.classList.toggle("is-live", isLive);
