@@ -271,12 +271,33 @@ iframe{display:block; border:0; width:100%}
   .pageGrid{grid-template-columns: 1fr}
   .links{grid-template-columns: 1fr}
 }
-@keyframes glowBreath{
-  0%{ text-shadow: 0 0 10px rgba(255,209,102,.25); }
-  50%{ text-shadow: 0 0 24px rgba(255,209,102,.45); }
-  100%{ text-shadow: 0 0 10px rgba(255,209,102,.25); }
+/* =======================================
+   🔥 Banner Glow Animation Premium
+======================================= */
+
+@keyframes bannerBreath {
+  0%   { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
+                      0 0 30px rgba(255,209,102,.15); }
+  50%  { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
+                      0 0 70px rgba(255,209,102,.35); }
+  100% { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
+                      0 0 30px rgba(255,209,102,.15); }
 }
 
-.heroTitle{
-  animation: glowBreath 4s ease-in-out infinite;
+.banner {
+  animation: bannerBreath 4s ease-in-out infinite;
+}
+
+/* 🔴 Version LIVE */
+.is-live .banner {
+  animation: bannerLive 2s ease-in-out infinite;
+}
+
+@keyframes bannerLive {
+  0%   { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
+                      0 0 40px rgba(185,28,28,.25); }
+  50%  { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
+                      0 0 90px rgba(185,28,28,.60); }
+  100% { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
+                      0 0 40px rgba(185,28,28,.25); }
 }
