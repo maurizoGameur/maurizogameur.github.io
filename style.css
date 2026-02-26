@@ -271,3 +271,12 @@ iframe{display:block; border:0; width:100%}
   .pageGrid{grid-template-columns: 1fr}
   .links{grid-template-columns: 1fr}
 }
+@keyframes glowBreath{
+  0%{ text-shadow: 0 0 10px rgba(255,209,102,.25); }
+  50%{ text-shadow: 0 0 24px rgba(255,209,102,.45); }
+  100%{ text-shadow: 0 0 10px rgba(255,209,102,.25); }
+}
+
+.heroTitle{
+  animation: glowBreath 4s ease-in-out infinite;
+}
