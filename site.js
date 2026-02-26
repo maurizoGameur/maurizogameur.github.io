@@ -55,3 +55,43 @@ async function checkLive(){
 
 checkLive();
 setInterval(checkLive, 60000);
+// ================================
+// 🔴 LIVE/OFF pour streamers suggérés
+// ================================
+function uptimeUrlFor(channel){
+  return "https://api.allorigins.win/raw?url=" +
+    encodeURIComponent("https://decapi.me/twitch/uptime/" + channel);
+}
+
+async function checkOneSuggested(el){
+  const channel = el.getAttribute("data-channel");
+  if(!channel) return;
+
+  const pill = el.querySelector("[data-pill]");
+  try{
+    const res = await fetch(uptimeUrlFor(channel), { cache: "no-store" });
+    const txt = (await res.text()).trim().toLowerCase();
+    const isLive = !txt.includes("offline");
+
+    el.classList.toggle("isLive", isLive);
+    el.classList.toggle("isOff", !isLive);
+
+    if(pill) pill.textContent = isLive ? "LIVE" : "OFF";
+  }catch(e){
+    // si erreur, on laisse OFF (sans casser)
+    el.classList.add("isOff");
+    el.classList.remove("isLive");
+    if(pill) pill.textContent = "OFF";
+  }
+}
+
+async function updateSuggested(){
+  const items = document.querySelectorAll("[data-suggest]");
+  for(const el of items){
+    await checkOneSuggested(el);
+  }
+}
+
+// Lance + refresh
+updateSuggested();
+setInterval(updateSuggested, 60000);
