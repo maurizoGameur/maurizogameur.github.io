@@ -1,60 +1,10 @@
-// ===============================
-// MaurizoGameur - Live + BRB Mode
-// ===============================
-
+// site.js — MaurizoGameur (LIVE auto + suggested streamers)
 const CHANNEL = "maurizogameur";
 
-// Twitch uptime via decapi
-const UPTIME_URL =
-  "https://api.allorigins.win/raw?url=" +
-  encodeURIComponent("https://decapi.me/twitch/uptime/" + CHANNEL);
-
-// ===============================
-// BRB STATE
-// ===============================
-
-const KEY_BRB = "mz_site_brb";
-let brb = localStorage.getItem(KEY_BRB) === "1";
-
-function setBRB(on){
-  brb = !!on;
-  localStorage.setItem(KEY_BRB, brb ? "1" : "0");
-  applyScenes();
+function uptimeUrl(channel){
+  return "https://api.allorigins.win/raw?url=" +
+    encodeURIComponent("https://decapi.me/twitch/uptime/" + channel);
 }
-
-// 🔥 Touche B = toggle BRB
-document.addEventListener("keydown", (e)=>{
-  if(e.key.toLowerCase() === "b"){
-    setBRB(!brb);
-  }
-});
-
-// ===============================
-// SCENE SWITCH
-// ===============================
-
-function applyScenes(){
-  const isLive = document.documentElement.classList.contains("is-live");
-
-  const offlineScene = document.getElementById("offlineScene");
-  const liveScene = document.getElementById("liveScene");
-  const brbScene = document.getElementById("brbScene");
-
-  if(brb){
-    if(offlineScene) offlineScene.style.display = "none";
-    if(liveScene) liveScene.style.display = "none";
-    if(brbScene) brbScene.style.display = "block";
-    return;
-  }
-
-  if(brbScene) brbScene.style.display = "none";
-  if(offlineScene) offlineScene.style.display = isLive ? "none" : "block";
-  if(liveScene) liveScene.style.display = isLive ? "block" : "none";
-}
-
-// ===============================
-// LIVE CHECK
-// ===============================
 
 function setMode(isLive){
   document.documentElement.classList.toggle("is-live", isLive);
@@ -70,32 +20,62 @@ function setMode(isLive){
     dot.classList.toggle("live", isLive);
     dot.classList.toggle("off", !isLive);
   }
-
   if(label){
     label.textContent = isLive ? "EN DIRECT" : "OFFLINE";
   }
-
   if(liveBtn){
     liveBtn.style.display = isLive ? "inline-flex" : "none";
   }
-
   if(twitchBtn){
     twitchBtn.style.display = isLive ? "none" : "inline-flex";
   }
-
-  applyScenes();
-}
-
-async function checkLive(){
-  try{
-    const res = await fetch(UPTIME_URL, { cache: "no-store" });
-    const txt = (await res.text()).trim().toLowerCase();
-    const isLive = !txt.includes("offline");
-    setMode(isLive);
-  }catch(e){
-    console.log("Live check error:", e);
+  if(bannerTag){
+    bannerTag.textContent = isLive ? "🔴 Stream ON" : "🟠 Stream OFF";
   }
 }
 
-checkLive();
-setInterval(checkLive, 60000);
+async function isChannelLive(channel){
+  const res = await fetch(uptimeUrl(channel), { cache: "no-store" });
+  const txt = (await res.text()).trim().toLowerCase();
+  return !txt.includes("offline");
+}
+
+async function checkMyLive(){
+  try{
+    const live = await isChannelLive(CHANNEL);
+    setMode(live);
+  }catch(e){
+    console.log("checkMyLive error:", e);
+  }
+}
+
+function setSuggestedCard(el, live){
+  const dot = el.querySelector(".pDot");
+  const text = el.querySelector(".pText");
+  if(!dot || !text) return;
+
+  dot.classList.toggle("live", live);
+  dot.classList.toggle("off", !live);
+  text.textContent = live ? "LIVE" : "OFF";
+}
+
+async function checkSuggested(){
+  const cards = [...document.querySelectorAll("[data-suggest][data-channel]")];
+  if(!cards.length) return;
+
+  await Promise.all(cards.map(async (el) => {
+    const ch = el.getAttribute("data-channel");
+    try{
+      const live = await isChannelLive(ch);
+      setSuggestedCard(el, live);
+    }catch(e){
+      // si API fail -> on laisse OFF
+      setSuggestedCard(el, false);
+    }
+  }));
+}
+
+checkMyLive();
+checkSuggested();
+setInterval(checkMyLive, 60000);
+setInterval(checkSuggested, 90000);
