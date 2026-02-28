@@ -549,3 +549,13 @@ iframe{display:block; border:0; width:100%}
   width:78px;
   height:78px;
 }
+.miniIcon{
+  width:18px;              /* un peu plus visible */
+  height:18px;
+  vertical-align:middle;
+  margin-right:6px;
+  object-fit:contain;
+}
+.suggestItem.isLive .miniIcon{
+  filter: drop-shadow(0 0 6px rgba(255,209,102,.6));
+}
