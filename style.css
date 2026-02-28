@@ -555,3 +555,17 @@ iframe{display:block; border:0; width:100%}
 .suggestItem.isLive .miniIcon{
   filter: drop-shadow(0 0 6px rgba(255,209,102,.6));
 }
+.pDot{
+  width:10px; height:10px; border-radius:3px;
+  display:inline-block;
+  background: rgba(255,255,255,.18);
+  box-shadow: 0 0 0 2px rgba(0,0,0,.15) inset;
+  margin-right:6px;
+  vertical-align:middle;
+}
+.pDot.off{ background: rgba(255,255,255,.22); }
+.pDot.live{
+  background:#ff2d2d;
+  box-shadow: 0 0 16px rgba(255,45,45,.45);
+}
+.pText{ font-weight:1000; }
