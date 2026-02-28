@@ -1,9 +1,15 @@
-// site.js — MaurizoGameur (LIVE auto + suggested streamers)
+// site.js — MaurizoGameur (LIVE auto + suggested streamers) ✅ SAFE
 const CHANNEL = "maurizogameur";
 
 function uptimeUrl(channel){
   return "https://api.allorigins.win/raw?url=" +
     encodeURIComponent("https://decapi.me/twitch/uptime/" + channel);
+}
+
+async function isChannelLive(channel){
+  const res = await fetch(uptimeUrl(channel), { cache: "no-store" });
+  const txt = (await res.text()).trim().toLowerCase();
+  return !txt.includes("offline");
 }
 
 function setMode(isLive){
@@ -16,7 +22,6 @@ function setMode(isLive){
   const twitchBtn = document.querySelector("[data-twitch-btn]");
   const bannerTag = document.querySelector("[data-banner-tag]");
 
-  // Dot + texte topbar
   if(dot){
     dot.classList.toggle("live", isLive);
     dot.classList.toggle("off", !isLive);
@@ -24,33 +29,14 @@ function setMode(isLive){
   if(label){
     label.textContent = isLive ? "EN DIRECT" : "OFFLINE";
   }
-
-  // Boutons LIVE / Twitch
   if(liveBtn){
     liveBtn.style.display = isLive ? "inline-flex" : "none";
   }
   if(twitchBtn){
     twitchBtn.style.display = isLive ? "none" : "inline-flex";
   }
-
-  // 🟠/🔴 sur la bannière
   if(bannerTag){
     bannerTag.textContent = isLive ? "🔴 Stream ON" : "🟠 Stream OFF";
-  }
-}
-
-async function isChannelLive(channel){
-  const res = await fetch(uptimeUrl(channel), { cache: "no-store" });
-  const txt = (await res.text()).trim().toLowerCase();
-  return !txt.includes("offline");
-}
-
-async function checkMyLive(){
-  try{
-    const live = await isChannelLive(CHANNEL);
-    setMode(live);
-  }catch(e){
-    console.log("checkMyLive error:", e);
   }
 }
 
@@ -62,6 +48,15 @@ function setSuggestedCard(el, live){
   dot.classList.toggle("live", live);
   dot.classList.toggle("off", !live);
   text.textContent = live ? "LIVE" : "OFF";
+}
+
+async function checkMyLive(){
+  try{
+    const live = await isChannelLive(CHANNEL);
+    setMode(live);
+  }catch(e){
+    console.log("checkMyLive error:", e);
+  }
 }
 
 async function checkSuggested(){
@@ -79,8 +74,9 @@ async function checkSuggested(){
   }));
 }
 
-// ✅ start
-checkMyLive();
-checkSuggested();
-setInterval(checkMyLive, 60000);
-setInterval(checkSuggested, 90000);
+window.addEventListener("DOMContentLoaded", () => {
+  checkMyLive();
+  checkSuggested();
+  setInterval(checkMyLive, 60000);
+  setInterval(checkSuggested, 90000);
+});
