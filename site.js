@@ -95,3 +95,39 @@ async function updateSuggested(){
 // Lance + refresh
 updateSuggested();
 setInterval(updateSuggested, 60000);
+
+.scene{ width:100%; }
+
+.offlineBox{
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.18);
+  padding:16px;
+  text-align:center;
+}
+
+.offlineTitle{
+  font-weight:1000;
+  font-size:20px;
+  margin-bottom:8px;
+}
+
+.offlineSub{
+  color: var(--mut);
+  font-weight:800;
+  margin-bottom:14px;
+}
+
+.offlineImg{
+  width:100%;
+  max-height:360px;
+  object-fit:cover;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+}
+
+/* petit effet BRB */
+#brbScene .offlineBox{
+  box-shadow: 0 0 40px rgba(255,209,102,.15);
+  border-color: rgba(255,209,102,.25);
+}
