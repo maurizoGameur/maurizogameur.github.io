@@ -61,21 +61,20 @@ setInterval(checkMyLive, 60000);    dot.classList.toggle("live", live);
   }
 }
 
-async function checkSuggested(){
-  const cards = [...document.querySelectorAll("[data-suggest][data-channel]")];
-  if(!cards.length) return;
+function setSuggestedCard(el, live){
+  // ✅ glow sur la carte entière
+  el.classList.toggle("is-live", live);
 
-  await Promise.all(cards.map(async (el) => {
-    const ch = el.getAttribute("data-channel");
-    try{
-      const live = await isChannelLive(ch);
-      setSuggestedCard(el, live);
-    }catch(e){
-      setSuggestedCard(el, false);
-    }
-  }));
+  const dot = el.querySelector(".pDot");
+  const text = el.querySelector(".pText");
+  if(dot){
+    dot.classList.toggle("live", live);
+    dot.classList.toggle("off", !live);
+  }
+  if(text){
+    text.textContent = live ? "LIVE" : "OFF";
+  }
 }
-
 // GO
 checkMyLive();
 checkSuggested();
