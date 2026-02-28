@@ -28,10 +28,10 @@ function setMode(isLive){
   }
   if(twitchBtn){
     twitchBtn.style.display = isLive ? "none" : "inline-flex";
-  }
-  if(bannerTag){
-    bannerTag.textContent = isLive ? "🔴 Stream ON" : "🟠 Stream OFF";
-  }
+  const bannerTag = document.querySelector("[data-banner-tag]");
+if(bannerTag){
+  bannerTag.textContent = isLive ? "🔴 Stream ON" : "🟠 Stream OFF";
+}
 }
 
 async function isChannelLive(channel){
