@@ -605,3 +605,54 @@ iframe{display:block; border:0; width:100%}
   opacity:0;
   pointer-events:none;
 }
+/* ===== OFFLINE.PNG area ===== */
+.offlineArea{
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.18);
+}
+.offlineImg{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+/* ===== Mini icons (Twitch / Dofus) ===== */
+.miniIcon{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+  vertical-align:middle;
+  margin-right:8px;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,.35));
+}
+
+/* ===== LEGO mini icon (CSS) ===== */
+.legoIcon{
+  width:18px;
+  height:18px;
+  border-radius:4px;
+  display:inline-block;
+  vertical-align:middle;
+  margin-right:8px;
+  background:
+    radial-gradient(circle at 25% 30%, rgba(255,255,255,.55), transparent 38%),
+    linear-gradient(180deg, #ffd166, #ff7a18);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.25),
+    0 8px 18px rgba(0,0,0,.35);
+}
+
+/* ===== Partenaires un peu plus grand (visible) ===== */
+.sugAvatar{
+  width:84px !important;
+  height:84px !important;
+  border-radius:18px !important;
+}
+.suggestItem{
+  padding:16px !important;
+}
+.suggestName{
+  font-size:16px !important;
+}
