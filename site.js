@@ -16,6 +16,7 @@ function setMode(isLive){
   const twitchBtn = document.querySelector("[data-twitch-btn]");
   const bannerTag = document.querySelector("[data-banner-tag]");
 
+  // Dot + texte topbar
   if(dot){
     dot.classList.toggle("live", isLive);
     dot.classList.toggle("off", !isLive);
@@ -23,15 +24,19 @@ function setMode(isLive){
   if(label){
     label.textContent = isLive ? "EN DIRECT" : "OFFLINE";
   }
+
+  // Boutons LIVE / Twitch
   if(liveBtn){
     liveBtn.style.display = isLive ? "inline-flex" : "none";
   }
   if(twitchBtn){
     twitchBtn.style.display = isLive ? "none" : "inline-flex";
-  const bannerTag = document.querySelector("[data-banner-tag]");
-if(bannerTag){
-  bannerTag.textContent = isLive ? "🔴 Stream ON" : "🟠 Stream OFF";
-}
+  }
+
+  // 🟠/🔴 sur la bannière
+  if(bannerTag){
+    bannerTag.textContent = isLive ? "🔴 Stream ON" : "🟠 Stream OFF";
+  }
 }
 
 async function isChannelLive(channel){
@@ -69,12 +74,12 @@ async function checkSuggested(){
       const live = await isChannelLive(ch);
       setSuggestedCard(el, live);
     }catch(e){
-      // si API fail -> on laisse OFF
       setSuggestedCard(el, false);
     }
   }));
 }
 
+// ✅ start
 checkMyLive();
 checkSuggested();
 setInterval(checkMyLive, 60000);
