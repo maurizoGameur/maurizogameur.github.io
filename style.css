@@ -657,7 +657,7 @@ iframe{display:block; border:0; width:100%}
   font-size:16px !important;
 }
 /* ================================
-   🔥 Partner LIVE Glow
+   🔥 Partner LIVE Glow (CLEAN)
 ================================ */
 
 .suggestLine{
@@ -668,6 +668,7 @@ iframe{display:block; border:0; width:100%}
   flex-wrap:wrap;
 }
 
+/* pill OFF/LIVE */
 .pBadge{
   display:inline-flex;
   align-items:center;
@@ -681,20 +682,19 @@ iframe{display:block; border:0; width:100%}
 }
 
 .pDot{
-  width:9px;
-  height:9px;
+  width:10px;
+  height:10px;
   border-radius:3px;
-  background: rgba(255,255,255,.25);
+  background: rgba(255,255,255,.22);
   box-shadow:none;
 }
-
-.pDot.off{ background: rgba(255,255,255,.25); }
+.pDot.off{ background: rgba(255,255,255,.22); }
 .pDot.live{
   background:#ff2d2d;
-  box-shadow: 0 0 18px rgba(255,45,45,.55);
+  box-shadow: 0 0 18px rgba(255,45,45,.45);
 }
 
-.pText{ letter-spacing:.2px; }
+.pText{ letter-spacing:.2px; opacity:.9; }
 
 /* ✅ Quand partenaire LIVE -> glow sur la carte */
 .suggestItem.is-live{
@@ -703,38 +703,20 @@ iframe{display:block; border:0; width:100%}
     radial-gradient(120% 120% at 15% 20%, rgba(255,209,102,.10), transparent 60%),
     radial-gradient(120% 120% at 80% 30%, rgba(255,45,45,.10), transparent 65%),
     rgba(255,255,255,.05);
-  box-shadow: 0 18px 55px rgba(0,0,0,.35), 0 0 45px rgba(255,45,45,.10);
+  box-shadow:
+    0 18px 55px rgba(0,0,0,.35),
+    0 0 0 1px rgba(255,255,255,.08),
+    0 0 40px rgba(255,45,45,.16),
+    0 0 90px rgba(255,45,45,.10);
 }
 
 .suggestItem.is-live .pBadge{
   background: rgba(255,45,45,.12);
   border-color: rgba(255,45,45,.25);
 }
-/* ⭐ Partenaires — glow quand LIVE */
-.suggestItem.is-live{
-  border-color: rgba(255,45,45,.28);
-  box-shadow:
-    0 18px 55px rgba(0,0,0,.35),
-    0 0 0 1px rgba(255,255,255,.08),
-    0 0 40px rgba(255,45,45,.16),
-    0 0 90px rgba(255,45,45,.10);
-  background: linear-gradient(90deg, rgba(255,45,45,.10), rgba(255,122,24,.08));
-}
 
 .suggestItem.is-live .sugAvatar{
-  box-shadow: 0 10px 28px rgba(0,0,0,.35), 0 0 24px rgba(255,45,45,.18);
-}
-
-/* petit badge LIVE (si tu utilises .pDot / .pText) */
-.pDot{
-  width:10px;height:10px;border-radius:3px;
-  background: rgba(255,255,255,.25);
-  box-shadow: none;
-}
-.pDot.live{
-  background:#ff2d2d;
-  box-shadow: 0 0 18px rgba(255,45,45,.45);
-}
-.pDot.off{
-  background: rgba(255,255,255,.22);
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.35),
+    0 0 24px rgba(255,45,45,.18);
 }
