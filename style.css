@@ -500,3 +500,52 @@ iframe{display:block; border:0; width:100%}
   box-shadow: 0 0 40px rgba(255,209,102,.15);
   border-color: rgba(255,209,102,.25);
 }
+/* ===== Suggested Streamers LIVE/OFF pill ===== */
+.suggestRow{
+  margin-top:6px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.suggestPill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.22);
+  font-weight:1000;
+  font-size:12px;
+}
+
+.pDot{
+  width:10px;
+  height:10px;
+  border-radius:3px;
+  display:inline-block;
+  box-shadow: 0 0 18px rgba(255,122,24,.18);
+}
+
+.pDot.off{
+  background: rgba(255,255,255,.30);
+  box-shadow:none;
+}
+
+.pDot.live{
+  background: #ff2d2d;
+  box-shadow: 0 0 22px rgba(255,45,45,.45);
+}
+
+.pText{letter-spacing:.3px;}
+
+/* un petit boost visibilité (option) */
+.suggestItem{
+  min-height: 110px;
+}
+.sugAvatar{
+  width:78px;
+  height:78px;
+}
