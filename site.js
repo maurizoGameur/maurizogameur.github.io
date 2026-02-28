@@ -1,15 +1,9 @@
-// site.js — MaurizoGameur (LIVE auto + switch scènes + suggestions)
+// site.js — MaurizoGameur (LIVE auto: OFFLINE.PNG <-> Live+Chat)
 const CHANNEL = "maurizogameur";
 
 function uptimeUrl(channel){
   return "https://api.allorigins.win/raw?url=" +
     encodeURIComponent("https://decapi.me/twitch/uptime/" + channel);
-}
-
-async function isChannelLive(channel){
-  const res = await fetch(uptimeUrl(channel), { cache: "no-store" });
-  const txt = (await res.text()).trim().toLowerCase();
-  return !txt.includes("offline");
 }
 
 function setMode(isLive){
@@ -21,10 +15,9 @@ function setMode(isLive){
   const liveBtn = document.querySelector("[data-live-btn]");
   const twitchBtn = document.querySelector("[data-twitch-btn]");
 
-  const brbScene = document.getElementById("brbScene");
-  const liveScene = document.getElementById("liveScene");
+  const offlineArea = document.querySelector("[data-offline-area]");
+  const liveArea = document.querySelector("[data-live-area]");
 
-  // header dot + texte
   if(dot){
     dot.classList.toggle("live", isLive);
     dot.classList.toggle("off", !isLive);
@@ -33,13 +26,19 @@ function setMode(isLive){
     label.textContent = isLive ? "EN DIRECT" : "OFFLINE";
   }
 
-  // boutons
+  // Boutons
   if(liveBtn) liveBtn.style.display = isLive ? "inline-flex" : "none";
   if(twitchBtn) twitchBtn.style.display = isLive ? "none" : "inline-flex";
 
-  // ✅ switch scènes
-  if(brbScene) brbScene.style.display = isLive ? "none" : "block";
-  if(liveScene) liveScene.style.display = isLive ? "block" : "none";
+  // OFFLINE.PNG <-> iframes
+  if(offlineArea) offlineArea.style.display = isLive ? "none" : "block";
+  if(liveArea) liveArea.style.display = isLive ? "block" : "none";
+}
+
+async function isChannelLive(channel){
+  const res = await fetch(uptimeUrl(channel), { cache: "no-store" });
+  const txt = (await res.text()).trim().toLowerCase();
+  return !txt.includes("offline");
 }
 
 async function checkMyLive(){
@@ -48,19 +47,13 @@ async function checkMyLive(){
     setMode(live);
   }catch(e){
     console.log("checkMyLive error:", e);
-    // si l’API bug: on reste OFF (safe)
+    // si erreur API: on garde OFFLINE (safe)
     setMode(false);
   }
 }
 
-function setSuggestedCard(el, live){
-  el.classList.toggle("isLive", live);
-  el.classList.toggle("isOff", !live);
-
-  const dot = el.querySelector(".pDot");
-  const text = el.querySelector(".pText");
-  if(dot){
-    dot.classList.toggle("live", live);
+checkMyLive();
+setInterval(checkMyLive, 60000);    dot.classList.toggle("live", live);
     dot.classList.toggle("off", !live);
   }
   if(text){
