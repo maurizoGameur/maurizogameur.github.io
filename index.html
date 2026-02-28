@@ -1,184 +1,82 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MaurizoGameur • Accueil</title>
-  <meta name="description" content="MaurizoGameur • Dofus & Pokémon • Live + Chat + Planning + Discord" />
-  <link rel="stylesheet" href="./style.css" />
-</head>
+// site.js — MaurizoGameur (LIVE auto + suggested streamers) ✅ SAFE
+const CHANNEL = "maurizogameur";
 
-<body>
-  <main class="wrap">
+function uptimeUrl(channel){
+  return "https://api.allorigins.win/raw?url=" +
+    encodeURIComponent("https://decapi.me/twitch/uptime/" + channel);
+}
 
-    <!-- TOPBAR PRO (shared) -->
-    <header class="topbar">
-      <div class="left">
-        <span class="badge">
-          <span class="dot off" data-live-dot></span>
-          <span data-live-label>OFFLINE</span>
-          <span style="opacity:.85">•</span>
-          <span style="font-weight:1000">MaurizoGameur</span>                                                                                      
-        </span>
-        <p class="sub">Dofus • Pokémon • Communauté</p>
-      </div>
+async function isChannelLive(channel){
+  const res = await fetch(uptimeUrl(channel), { cache: "no-store" });
+  const txt = (await res.text()).trim().toLowerCase();
+  return !txt.includes("offline");
+}
 
-      <nav class="right">
-        <a class="btn" href="./index.html">🏠 Accueil</a>
-        <a class="btn" href="./planning.html">📅 Planning</a>
-        <a class="btn" href="./mapage.html">👤 Ma page</a>
-        <a class="btn" href="https://discord.gg/7ARVD5hzR9" target="_blank" rel="noreferrer">💬 Discord</a>
+function setMode(isLive){
+  document.documentElement.classList.toggle("is-live", isLive);
+  document.documentElement.classList.toggle("is-off", !isLive);
 
-        <!-- 🔴 Visible seulement quand LIVE -->
-        <a class="btn btn--primary" data-live-btn style="display:none"
-           href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">
-          🔴 LIVE
-        </a>
+  const dot = document.querySelector("[data-live-dot]");
+  const label = document.querySelector("[data-live-label]");
+  const liveBtn = document.querySelector("[data-live-btn]");
+  const twitchBtn = document.querySelector("[data-twitch-btn]");
+  const bannerTag = document.querySelector("[data-banner-tag]");
 
-        <!-- 🎥 Visible seulement quand OFFLINE -->
-        <a class="btn btn--primary" data-twitch-btn
-           href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">
-          🎥 Twitch
-        </a>
-      </nav>
-    </header>
+  if(dot){
+    dot.classList.toggle("live", isLive);
+    dot.classList.toggle("off", !isLive);
+  }
+  if(label){
+    label.textContent = isLive ? "EN DIRECT" : "OFFLINE";
+  }
+  if(liveBtn){
+    liveBtn.style.display = isLive ? "inline-flex" : "none";
+  }
+  if(twitchBtn){
+    twitchBtn.style.display = isLive ? "none" : "inline-flex";
+  }
+  if(bannerTag){
+    bannerTag.textContent = isLive ? "🔴 Stream ON" : "🟠 Stream OFF";
+  }
+}
 
-    <!-- Banner -->
-    <section class="banner" aria-label="Bannière">
-        <span class="bannerRight">⚡ Gameur passionné • Chill • Respect</span>
-      </div>
-    </section>
+function setSuggestedCard(el, live){
+  const dot = el.querySelector(".pDot");
+  const text = el.querySelector(".pText");
+  if(!dot || !text) return;
 
-    <!-- Live + Chat (OFF / BRB / LIVE auto) -->
-    <section class="card">
-      <h2 class="cardTitle">📺 Live + Chat</h2>
+  dot.classList.toggle("live", live);
+  dot.classList.toggle("off", !live);
+  text.textContent = live ? "LIVE" : "OFF";
+}
 
-      <!-- OFFLINE SCENE -->
-      <div id="offlineScene" class="scene">
-        <div class="offlineBox">
-          <div class="offlineTitle">🟠 Stream OFF</div>
-          <div class="offlineSub">Je reviens bientôt 😄</div>
-          <img class="offlineImg" src="./OFFLINE.PNG" alt="Offline screen">
-        </div>
-      </div>
+async function checkMyLive(){
+  try{
+    const live = await isChannelLive(CHANNEL);
+    setMode(live);
+  }catch(e){
+    console.log("checkMyLive error:", e);
+  }
+}
 
-      <!-- BRB SCENE -->
-      <div id="brbScene" class="scene" style="display:none">
-        <div class="offlineBox">
-          <div class="offlineTitle">⏸️ Pause (BRB)</div>
-          <div class="offlineSub">Je reviens dans quelques minutes 😄</div>
-          <img class="offlineImg" src="./banner.png" alt="BRB screen">
-        </div>
-      </div>
+async function checkSuggested(){
+  const cards = [...document.querySelectorAll("[data-suggest][data-channel]")];
+  if(!cards.length) return;
 
-      <!-- LIVE SCENE -->
-      <div id="liveScene" class="scene" style="display:none">
-        <div class="liveGrid">
-          <div class="frameBox">
-            <iframe
-              class="player"
-              src="https://player.twitch.tv/?channel=maurizogameur&parent=maurizogameur.github.io&autoplay=false"
-              allowfullscreen="true">
-            </iframe>
-          </div>
+  await Promise.all(cards.map(async (el) => {
+    const ch = el.getAttribute("data-channel");
+    try{
+      const live = await isChannelLive(ch);
+      setSuggestedCard(el, live);
+    }catch(e){
+      setSuggestedCard(el, false);
+    }
+  }));
+}
 
-          <div class="frameBox">
-            <iframe
-              class="chat"
-              src="https://www.twitch.tv/embed/maurizogameur/chat?parent=maurizogameur.github.io">
-            </iframe>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ⭐ Partenaires Maurizo -->
-<section class="card">
-  <h2 class="cardTitle">🤝 MaurizoGameur suggère ces streamers</h2>
-
-  <div class="suggestGrid">
-
-    <a class="suggestItem"
-       data-suggest
-       data-channel="ionegeek"
-       href="https://www.twitch.tv/ionegeek" target="_blank" rel="noreferrer">
-      <div class="suggestAvatarWrap">
-        <img class="sugAvatar"
-             src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/ionegeek.png"
-             alt="ionegeek">
-      </div>
-
-      <div class="suggestMeta">
-        <div class="suggestName">ionegeek</div>
-
-        <div class="suggestRow">
-          <div class="suggestPill">
-            <span class="pDot off"></span>
-            <span class="pText">OFF</span>
-          </div>
-          <div class="suggestStatus">⚡ TCG • Twitch</div>
-        </div>
-      </div>
-    </a>
-
-    <a class="suggestItem"
-       data-suggest
-       data-channel="gagini_"
-       href="https://www.twitch.tv/gagini_" target="_blank" rel="noreferrer">
-      <div class="suggestAvatarWrap">
-        <img class="sugAvatar"
-             src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/gagini.png"
-             alt="gagini_">
-      </div>
-
-      <div class="suggestMeta">
-        <div class="suggestName">gagini_</div>
-
-        <div class="suggestRow">
-          <div class="suggestPill">
-            <span class="pDot off"></span>
-            <span class="pText">OFF</span>
-          </div>
-          <div class="suggestStatus">🧱 Lego • Twitch</div>
-        </div>
-      </div>
-    </a>
-
-    <a class="suggestItem"
-   data-suggest
-   data-channel="benjsammy"
-   href="https://www.twitch.tv/benjsammy"
-   target="_blank" rel="noreferrer">
-
-  <div class="suggestAvatarWrap">
-    <img class="sugAvatar"
-         src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/benjsammy.png"
-         alt="benjsammy">
-  </div>
-
-  <div class="suggestMeta">
-    <div class="suggestName">benjsammy</div>
-
-    <div class="suggestRow">
-      <div class="suggestPill">
-        <span class="pDot off"></span>
-        <span class="pText">OFF</span>
-      </div>
-
-      <div class="suggestStatus">
-        <img class="miniIcon"
-             src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/refs/heads/main/dofus.png"
-             alt="">
-        Dofus • Twitch
-      </div>
-
-    </div>
-  </div>
-
-</a>
-
-  </main>
-
-  <script src="./site.js"></script>
-</body>
-</html>
+window.addEventListener("DOMContentLoaded", () => {
+  checkMyLive();
+  checkSuggested();
+  setInterval(checkMyLive, 60000);
+  setInterval(checkSuggested, 90000);
+});
