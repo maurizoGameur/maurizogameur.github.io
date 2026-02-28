@@ -83,10 +83,6 @@ function setMode(isLive){
     twitchBtn.style.display = isLive ? "none" : "inline-flex";
   }
 
-  if(bannerTag){
-    bannerTag.textContent = isLive ? "🔴 Stream ON" : "🟠 Stream OFF";
-  }
-
   applyScenes();
 }
 
