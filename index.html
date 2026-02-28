@@ -52,27 +52,41 @@
       </div>
     </section>
 
-    <!-- Live + Chat -->
     <section class="card">
-      <h2 class="cardTitle">📺 Live + Chat</h2>
+  <h2 class="cardTitle">📺 Live + Chat</h2>
 
-      <div class="liveGrid">
-        <div class="frameBox">
-          <iframe
-            class="player"
-            src="https://player.twitch.tv/?channel=maurizogameur&parent=maurizogameur.github.io&autoplay=false"
-            allowfullscreen="true">
-          </iframe>
-        </div>
+  <div class="liveGrid">
 
-        <div class="frameBox">
-          <iframe
-            class="chat"
-            src="https://www.twitch.tv/embed/maurizogameur/chat?parent=maurizogameur.github.io">
-          </iframe>
-        </div>
+    <!-- PLAYER -->
+    <div class="frameBox liveWrap">
+      
+      <!-- Image OFFLINE -->
+      <div class="offlineLayer">
+        <img 
+          src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/refs/heads/main/OFFLINE.PNG"
+          alt="Stream Offline"
+          class="offlineImage">
       </div>
-    </section>
+
+      <!-- Twitch Player -->
+      <iframe
+        class="player"
+        src="https://player.twitch.tv/?channel=maurizogameur&parent=maurizogameur.github.io&autoplay=false"
+        allowfullscreen="true">
+      </iframe>
+
+    </div>
+
+    <!-- CHAT -->
+    <div class="frameBox chatWrap">
+      <iframe
+        class="chat"
+        src="https://www.twitch.tv/embed/maurizogameur/chat?parent=maurizogameur.github.io">
+      </iframe>
+    </div>
+
+  </div>
+</section>
 
     <!-- 🤝 Suggéré / Partenaires -->
     <section class="card">
