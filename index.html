@@ -1,115 +1,41 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MaurizoGameur • Accueil</title>
-  <meta name="description" content="MaurizoGameur • Dofus & Pokémon • Live + Chat + Planning + Discord" />
-  <link rel="stylesheet" href="./style.css" />
-</head>
+<section class="card">
+  <h2 class="cardTitle">📺 Live + Chat</h2>
 
-<body>
-  <main class="wrap">
+  <!-- OFFLINE SCENE -->
+  <div id="offlineScene" class="scene">
+    <div class="offlineBox">
+      <div class="offlineTitle">🟠 Stream OFF</div>
+      <div class="offlineSub">Je reviens bientôt 😄</div>
+      <img class="offlineImg" src="./banner.png" alt="Offline screen">
+    </div>
+  </div>
 
-    <!-- TOPBAR PRO (shared) -->
-    <div class="topbar">
-      <div class="left">
-        <span class="badge">
-          <span class="dot off" data-live-dot></span>
-          <span data-live-label>OFFLINE</span>
-          <span style="opacity:.85">•</span>
-          <span style="font-weight:1000">MaurizoGameur</span>
-        </span>
-        <p class="sub">Dofus • Pokémon • Communauté</p>
+  <!-- BRB SCENE -->
+  <div id="brbScene" class="scene" style="display:none">
+    <div class="offlineBox">
+      <div class="offlineTitle">⏸️ Pause (BRB)</div>
+      <div class="offlineSub">Je reviens dans quelques minutes 😄</div>
+      <img class="offlineImg" src="./banner.png" alt="BRB screen">
+    </div>
+  </div>
+
+  <!-- LIVE SCENE -->
+  <div id="liveScene" class="scene" style="display:none">
+    <div class="liveGrid">
+      <div class="frameBox">
+        <iframe
+          class="player"
+          src="https://player.twitch.tv/?channel=maurizogameur&parent=maurizogameur.github.io&autoplay=false"
+          allowfullscreen="true">
+        </iframe>
       </div>
 
-      <div class="right">
-        <a class="btn" href="./index.html">🏠 Accueil</a>
-        <a class="btn" href="./planning.html">📅 Planning</a>
-        <a class="btn" href="./mapage.html">👤 Ma page</a>
-        <a class="btn" href="https://discord.gg/7ARVD5hzR9" target="_blank" rel="noreferrer">💬 Discord</a>
-
-        <a class="btn btn--primary" data-live-btn style="display:none"
-           href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">
-          🔴 LIVE
-        </a>
-
-        <a class="btn btn--primary" data-twitch-btn
-           href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">
-          🎥 Twitch
-        </a>
+      <div class="frameBox">
+        <iframe
+          class="chat"
+          src="https://www.twitch.tv/embed/maurizogameur/chat?parent=maurizogameur.github.io">
+        </iframe>
       </div>
     </div>
-
-    <!-- Banner -->
-    <section class="banner" aria-label="Bannière">
-      <div class="bannerInner">
-        <span class="bannerTag" data-banner-tag>🟠 Stream OFF</span>
-        <span class="bannerRight">Rejoins-moi sur Twitch !</span>
-      </div>
-    </section>
-
-    <!-- Live + Chat -->
-    <section class="card">
-      <h2 class="cardTitle">📺 Live + Chat</h2>
-
-      <div class="liveGrid">
-        <div class="frameBox">
-          <iframe
-            class="player"
-            src="https://player.twitch.tv/?channel=maurizogameur&parent=maurizogameur.github.io&autoplay=false"
-            allowfullscreen="true">
-          </iframe>
-        </div>
-
-        <div class="frameBox">
-          <iframe
-            class="chat"
-            src="https://www.twitch.tv/embed/maurizogameur/chat?parent=maurizogameur.github.io">
-          </iframe>
-        </div>
-      </div>
-    </section>
-<!-- ⭐ Chaînes suggérées -->
-<section class="card">
-  <h2 class="cardTitle">⭐ MaurizoGameur suggère ces streamers</h2>
-
-  <div class="suggestGrid">
-
-    <a class="suggestItem" data-suggest data-channel="ionegeek"
-       href="https://www.twitch.tv/ionegeek" target="_blank" rel="noreferrer">
-      <img class="sugAvatar" src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/refs/heads/main/ionegeek.png" alt="ionegeek">
-      <div class="suggestMeta">
-        <div class="suggestName">ionegeek</div>
-        <div class="suggestPill"><span class="pDot"></span><span data-pill>OFF</span></div>
-      </div>
-      <span class="partnerBadge">⭐ Partenaire</span>
-    </a>
-
-    <a class="suggestItem" data-suggest data-channel="gagini_"
-       href="https://www.twitch.tv/gagini_" target="_blank" rel="noreferrer">
-      <img class="sugAvatar" src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/refs/heads/main/gagini.png" alt="gagini_">
-      <div class="suggestMeta">
-        <div class="suggestName">gagini_</div>
-        <div class="suggestPill"><span class="pDot"></span><span data-pill>OFF</span></div>
-      </div>
-      <span class="partnerBadge">⭐ Partenaire</span>
-    </a>
-
-    <a class="suggestItem" data-suggest data-channel="benjsammy"
-       href="https://www.twitch.tv/benjsammy" target="_blank" rel="noreferrer">
-      <img class="sugAvatar" src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/refs/heads/main/benjsammy.png" alt="benjsammy">
-      <div class="suggestMeta">
-        <div class="suggestName">benjsammy</div>
-        <div class="suggestPill"><span class="pDot"></span><span data-pill>OFF</span></div>
-      </div>
-      <span class="partnerBadge">⭐ Partenaire</span>
-    </a>
-
   </div>
 </section>
-  </main>
-
-  <script src="./site.js"></script>
-</body>
-</html>
