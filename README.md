@@ -1,0 +1,12 @@
+/dofus/
+  ebene.png
+  emeraude.png
+  turquoise.png
+  ivoire.png
+  pourpre.png
+  ocre.png
+  vulbis.png
+  cawotte.png
+  dokoko.png
+  kaliptus.png
+  nebuleux.png
