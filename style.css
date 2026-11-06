@@ -1,747 +1,112 @@
-/* style.css — MaurizoGameur (PRO shared) */
+/* style.css — MaurizoGameur v2 (thème FireRed : braise, orange, or) */
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap");
 
-/* Base */
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background:#070a12;
-  color:#eaf0ff;
-  line-height:1.45;
-  overflow-x:hidden;
-}
-a{color:inherit}
-img,iframe{max-width:100%}
-
-/* Theme */
 :root{
-  --shadow: 0 22px 70px rgba(0,0,0,.55);
-  --r: 20px;
+  /* Bleach : noir, blanc os, orange Ichigo — Dofus : turquoise */
+  --bg:#080b0e; --panel:#0f1519; --panel2:#151e23; --line:#25373d;
+  --red:#e11d2e; --orange:#ff7a1a; --gold:#4fe3c9;
+  --ink:#f3f1ea; --mut:#9fb3b3; --live:#ff3040;
+  --r:6px;
+  --font:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --title:"Anton","Bricolage Grotesque",Impact,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.55;overflow-x:hidden;
+  background-image:radial-gradient(800px 380px at 85% -100px,rgba(255,122,26,.20),transparent 70%),radial-gradient(700px 360px at 5% -120px,rgba(79,227,201,.12),transparent 70%)}
+img,iframe{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+.wrap{width:min(1180px,calc(100% - 28px));margin:0 auto;padding-bottom:48px}
 
-  /* FireRed */
-  --dark:#1a0f0f;
-  --dred:#5c0b0b;
-  --red:#b91c1c;
-  --orange:#ff7a18;
-  --glow:#ffd166;
-  --ink:#fff3e8;
+/* ===== Navigation ===== */
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 0;margin-bottom:18px;background:linear-gradient(var(--bg) 70%,transparent)}
+.left{display:flex;align-items:center;gap:12px;min-width:0}
+.sub{margin:0;color:var(--mut);font-size:14px}
+.right{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--panel);
+  border:1px solid var(--line);font-weight:800;white-space:nowrap}
+.badge .sep{opacity:.4}
+.dot,.pDot{width:10px;height:10px;border-radius:50%;background:#7a5d52;flex:none}
+.dot.live,.pDot.live{background:var(--live);box-shadow:0 0 0 0 rgba(255,48,64,.7);animation:ping 1.6s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 9px rgba(255,48,64,0)}100%{box-shadow:0 0 0 0 rgba(255,48,64,0)}}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:10px;text-decoration:none;font-weight:600;
+  font-size:15px;color:var(--ink);border:1px solid transparent;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--panel2);border-color:var(--line)}
+.btn[aria-current="page"]{background:var(--panel2);border-color:var(--line)}
+.btn--primary{background:var(--orange);color:#140700;font-weight:800}
+.btn--primary:hover{background:#ff9340;border-color:transparent}
 
-  --panel: rgba(255,255,255,.05);
-  --border: rgba(255,255,255,.10);
-  --mut: rgba(234,240,255,.72);
-}
+/* ===== Bannière ===== */
+.banner{position:relative;min-height:340px;border-radius:var(--r);overflow:hidden;clip-path:polygon(0 0,100% 0,100% calc(100% - 28px),calc(100% - 60px) 100%,0 100%);border:1px solid var(--line);
+  display:flex;align-items:flex-end;
+  background:linear-gradient(180deg,rgba(20,11,10,.1),rgba(20,11,10,.88)),
+  url("https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/banner.png") center/cover,var(--panel2)}
+.banner::before{content:"";position:absolute;top:-20%;right:12%;width:14px;height:140%;background:var(--orange);transform:rotate(22deg);opacity:.9}
+.bannerInner{position:relative;padding:28px}
+.bannerTitle{margin:0;font-family:var(--title);font-weight:400;font-size:clamp(3rem,9vw,6.2rem);line-height:.95;letter-spacing:.01em;text-transform:uppercase}
+.bannerRight{display:block;margin-top:10px;color:var(--gold);font-weight:600;font-size:1.1rem}
+.is-live .banner{border-color:var(--live);box-shadow:0 0 50px rgba(255,48,64,.25)}
 
-.wrap{
-  width:min(1400px, calc(100% - 24px));
-  margin: 16px auto 28px;
-}
+/* ===== Sections ===== */
+.card,.frame{margin-top:18px;padding:20px;border-radius:var(--r);background:var(--panel);border:1px solid var(--line)}
+.cardTitle{margin:0 0 14px;font-family:var(--title);font-weight:400;font-size:1.5rem;letter-spacing:.02em;border-left:5px solid var(--orange);padding-left:10px}
 
-/* Topbar */
-.topbar{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:12px; padding: 10px 14px;
-  border-radius:999px;
-  background: rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow: var(--shadow);
-  margin-bottom: 12px;
-}
-.left{display:flex;align-items:center;gap:10px;min-width:0}
-.badge{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:8px 10px;border-radius:999px;
-  background: rgba(0,0,0,.35);
-  border:1px solid rgba(255,255,255,.14);
-  color: rgba(255,255,255,.92);
-  font-weight:1000;
-  white-space:nowrap;
-}
-.dot{
-  width:10px;height:10px;border-radius:3px;
-  background: linear-gradient(180deg, var(--glow), var(--orange), var(--red));
-  box-shadow: 0 0 18px rgba(255,122,24,.28);
-  flex:0 0 auto;
-}
-.dot.off{ /* idem base */ }
-.dot.live{
-  background:#ff2d2d;
-  box-shadow: 0 0 22px rgba(255,45,45,.45);
-}
-.sub{
-  margin:0;color:var(--mut);font-size:13px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  max-width:55vw;
-}
+/* Live + chat */
+.offlineArea{border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.offlineImg{width:100%;height:auto}
+.liveGrid{display:grid;grid-template-columns:1.6fr 1fr;gap:12px}
+.frameBox{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#000}
+iframe{border:0;width:100%}
+.player{aspect-ratio:16/9;min-height:360px}
+.chat{height:100%;min-height:360px}
 
-.right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:10px 14px;border-radius:999px;text-decoration:none;
-  font-weight:900;border:1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.06);color:#eaf0ff;
-  transition: transform .12s ease, background .12s ease;
-  cursor:pointer;
-  user-select:none;
-  white-space:nowrap;
-}
-.btn:hover{transform: translateY(-1px)}
-.btn--primary{
-  color:#160a06;
-  background: linear-gradient(90deg, var(--glow), var(--orange));
-  border:1px solid rgba(0,0,0,.25);
-  box-shadow: 0 16px 46px rgba(255,122,24,.18);
-}
+/* Streamers suggérés */
+.suggestGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.suggestItem{display:flex;align-items:center;gap:14px;padding:14px;border-radius:8px;text-decoration:none;
+  background:var(--panel2);border:1px solid var(--line);transition:border-color .15s,transform .15s}
+.suggestItem:hover{border-color:var(--orange);transform:translateY(-2px)}
+.suggestItem.is-live{border-color:var(--live);box-shadow:0 0 28px rgba(255,48,64,.2)}
+.sugAvatar{width:72px;height:72px;border-radius:8px;object-fit:cover;background:#111;border:2px solid var(--gold)}
+.suggestMeta{min-width:0}
+.suggestName{font-weight:800;font-size:1.05rem}
+.suggestLine{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px}
+.pBadge{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;background:var(--bg);
+  border:1px solid var(--line);font-size:12px;font-weight:800}
+.is-live .pBadge{border-color:var(--live);color:#ffb4ae}
+.suggestStatus{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--mut)}
+.miniIcon{width:16px;height:16px;object-fit:contain}
 
-/* LIVE mood (subtil) */
-.is-live .topbar{
-  border-color: rgba(255,45,45,.20);
-  box-shadow: var(--shadow), 0 0 55px rgba(255,45,45,.08);
-}
+/* ===== Ma page ===== */
+.pageGrid{display:grid;grid-template-columns:340px 1fr;gap:22px;align-items:start}
+.profile{border-radius:8px;overflow:hidden;background:var(--panel2);border:1px solid var(--line)}
+.photo{width:100%;aspect-ratio:1;object-fit:cover}
+.cardPad{padding:16px}
+.h1{margin:0 0 4px;font-family:var(--title);font-weight:400;font-size:1.9rem;line-height:1.1}
+.meta{margin:0;color:var(--gold);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{padding:6px 12px;border-radius:999px;background:var(--bg);border:1px solid var(--line);font-size:14px;font-weight:600}
+/* Bio façon boîte de dialogue de jeu */
+.bio{padding:20px 22px;border-radius:8px;background:var(--bg);border:3px solid var(--gold);
+  box-shadow:inset 0 0 0 3px var(--bg),inset 0 0 0 5px var(--orange);font-size:1.05rem;max-width:62ch}
+.bio p{margin:0 0 12px}.bio p:last-child{margin:0}
+.links{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
+.linkCard{display:block;padding:14px 16px;border-radius:8px;text-decoration:none;font-weight:800;
+  background:var(--panel2);border:1px solid var(--line);transition:border-color .15s,transform .15s}
+.linkCard:last-child:nth-child(odd){grid-column:1/-1}
+.linkCard:hover{border-color:var(--orange);transform:translateY(-2px)}
+.linkSmall{display:block;margin-top:2px;font-weight:400;font-size:13px;color:var(--mut)}
+.planImg{width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
 
-/* Banner (index) */
-.banner{
-  border-radius: var(--r);
-  border: 1px solid rgba(255,255,255,.09);
-  box-shadow: var(--shadow);
-  overflow:hidden;
-  position:relative;
-  min-height: 320px;
-  background:
-    radial-gradient(120% 80% at 20% 10%, rgba(255,209,102,.18), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.35)),
-    url("https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/banner.png");
-  background-size: cover;
-  background-position: center;
-}
-.banner::after{
-  content:"";
-  position:absolute; inset:0;
-  background:
-    radial-gradient(closest-side at 30% 0%, rgba(0,0,0,.25), transparent 65%),
-    linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.38));
-  pointer-events:none;
-}
-.bannerInner{
-  position:relative;
-  padding: 18px 18px;
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
-}
-.bannerTag{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:7px 10px;border-radius:999px;
-  background: rgba(0,0,0,.35);
-  border:1px solid rgba(255,255,255,.14);
-  color: rgba(255,255,255,.92);
-  font-weight:1000;
-}
-.bannerRight{
-  color: rgba(255,209,102,.95);
-  font-weight:1000;
-  text-shadow: 0 8px 22px rgba(0,0,0,.55);
-}
+.foot{margin-top:28px;text-align:center;color:var(--mut);font-size:14px}
 
-/* Cards */
-.card, .frame{
-  margin-top: 12px;
-  border-radius: var(--r);
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.09);
-  box-shadow: var(--shadow);
-  padding: 12px;
-}
-.cardTitle{
-  margin: 0 0 10px;
-  font-weight: 1000;
-  letter-spacing:.2px;
-  display:flex;align-items:center;gap:8px;
-}
-
-/* Live + chat (index) */
-.liveGrid{
-  display:grid;
-  grid-template-columns: 1.35fr .65fr;
-  gap:12px;
-  align-items:stretch;
-}
-.frameBox{
-  border-radius: 16px;
-  overflow:hidden;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.18);
-}
-iframe{display:block; border:0; width:100%}
-.player{
-  aspect-ratio: 16 / 9;
-  min-height: 420px;
-  background:#000;
-}
-.chat{
-  height: 100%;
-  min-height: 420px;
-  background:#000;
-}
-
-/* mapage layout */
-.pageGrid{
-  display:grid;
-  grid-template-columns: 380px 1fr;
-  gap: 14px;
-  align-items:start;
-}
-.profile{
-  border-radius: 18px;
-  overflow:hidden;
-  border: 1px solid rgba(255,255,255,.10);
-  background:
-    radial-gradient(120% 80% at 30% 0%, rgba(255,209,102,.12), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.18));
-}
-.photo{
-  width:100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  display:block;
-  filter: contrast(1.06) saturate(1.06);
-}
-.cardPad{padding: 12px 12px 14px}
-.h1{margin:0 0 6px;font-size:28px;font-weight:1000;letter-spacing:.2px}
-.meta{margin:0;color:var(--mut);font-weight:900}
-.bio{
-  margin-top: 12px;
-  padding: 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.20);
-  line-height: 1.55;
-}
-.bio p{margin:0 0 10px}
-.bio p:last-child{margin:0}
-.chips{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
-.chip{
-  display:inline-flex; align-items:center; gap:8px;
-  padding: 10px 12px;
-  border-radius: 999px;
-  background: rgba(0,0,0,.25);
-  border: 1px solid rgba(255,255,255,.12);
-  color: rgba(255,255,255,.92);
-  font-weight: 900;
-}
-.links{
-  margin-top: 12px;
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-.linkCard{
-  text-decoration:none;
-  color:#eaf0ff;
-  padding: 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.06);
-  transition: transform .12s ease, background .12s ease;
-  font-weight: 1000;
-}
-.linkCard:hover{
-  transform: translateY(-1px);
-  background: linear-gradient(90deg, rgba(255,209,102,.12), rgba(255,122,24,.10));
-}
-.linkSmall{display:block;margin-top:6px;color:var(--mut);font-weight:700;font-size:12px}
-
-/* Planning */
-.planImg{
-  display:block;
-  width:100%;
-  height:auto;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.20);
-}
-
-/* Responsive */
-@media (max-width: 980px){
+@media (max-width:900px){
   .sub{display:none}
-  .banner{min-height: 220px}
-  .liveGrid{grid-template-columns: 1fr}
-  .player{min-height: 260px}
-  .chat{min-height: 380px}
-  .pageGrid{grid-template-columns: 1fr}
-  .links{grid-template-columns: 1fr}
+  .banner{min-height:240px}
+  .liveGrid,.pageGrid,.suggestGrid,.links{grid-template-columns:1fr}
+  .player,.chat{min-height:260px}
+  .topbar{flex-direction:column;align-items:stretch}
+  .right{justify-content:flex-start}
 }
-/* =======================================
-   🔥 Banner Glow Animation Premium
-======================================= */
-
-@keyframes bannerBreath {
-  0%   { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
-                      0 0 30px rgba(255,209,102,.15); }
-  50%  { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
-                      0 0 70px rgba(255,209,102,.35); }
-  100% { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
-                      0 0 30px rgba(255,209,102,.15); }
-}
-
-.banner {
-  animation: bannerBreath 4s ease-in-out infinite;
-}
-
-/* 🔴 Version LIVE */
-.is-live .banner {
-  animation: bannerLive 2s ease-in-out infinite;
-}
-
-@keyframes bannerLive {
-  0%   { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
-                      0 0 40px rgba(185,28,28,.25); }
-  50%  { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
-                      0 0 90px rgba(185,28,28,.60); }
-  100% { box-shadow: 0 0 0 1px rgba(255,255,255,.10),
-                      0 0 40px rgba(185,28,28,.25); }
-}
-/* ================================
-   ⭐ MaurizoGameur suggère ces streamers
-   Version PLUS VISIBLE
-================================ */
-
-.suggestGrid{
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap:18px; /* plus d'espace */
-}
-
-.suggestItem{
-  position:relative;
-  display:flex;
-  align-items:center;
-  gap:18px;
-
-  padding:20px 22px;          /* plus grand */
-  border-radius:20px;
-  background: rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.12);
-
-  text-decoration:none;
-  color:#eaf0ff;
-  transition: transform .18s ease, background .18s ease, border-color .18s ease;
-}
-
-.suggestItem:hover{
-  transform: translateY(-4px);
-  border-color: rgba(255,209,102,.35);
-  background: linear-gradient(90deg, rgba(255,209,102,.14), rgba(255,122,24,.12));
-}
-
-/* AVATAR PLUS GRAND */
-.sugAvatar{
-  width:80px;                 /* ← plus visible */
-  height:80px;
-  border-radius:18px;
-  object-fit:cover;
-  flex:0 0 auto;
-
-  background:#111;
-  border:2px solid rgba(255,209,102,.45);
-  box-shadow: 0 16px 36px rgba(0,0,0,.40);
-}
-
-.suggestMeta{
-  display:flex;
-  flex-direction:column;
-}
-
-.suggestName{
-  font-weight:1000;
-  font-size:18px;             /* plus grand */
-  line-height:1.1;
-}
-
-/* Pastille LIVE / OFF plus visible */
-.suggestPill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  margin-top:8px;
-
-  padding:7px 14px;
-  border-radius:999px;
-  font-size:13px;
-  font-weight:1000;
-
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.28);
-  color: var(--mut);
-}
-
-.suggestPill .pDot{
-  width:12px;
-  height:12px;
-  border-radius:3px;
-  background: rgba(255,255,255,.28);
-}
-
-/* LIVE */
-.suggestItem.isLive .suggestPill{
-  color:#160a06;
-  background: linear-gradient(90deg, var(--glow), var(--orange));
-  border-color: rgba(0,0,0,.20);
-  box-shadow: 0 12px 30px rgba(255,122,24,.25);
-}
-.suggestItem.isLive .suggestPill .pDot{
-  background:#ff2d2d;
-  box-shadow: 0 0 20px rgba(255,45,45,.55);
-}
-
-/* Badge partenaire plus visible */
-.partnerBadge{
-  position:absolute;
-  top:12px;
-  right:12px;
-
-  font-size:12px;
-  font-weight:1000;
-  padding:7px 14px;
-  border-radius:999px;
-
-  background: linear-gradient(90deg, var(--glow), var(--orange));
-  color:#160a06;
-  border:1px solid rgba(0,0,0,.25);
-  box-shadow: 0 12px 30px rgba(0,0,0,.40);
-}
-
-/* Responsive */
-@media (max-width: 980px){
-  .suggestGrid{ grid-template-columns: 1fr; }
-  .sugAvatar{ width:70px; height:70px; }
-}
-/* ================================
-   🔴 Pastille LIVE / OFF (streamers)
-================================ */
-
-.suggestPill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  margin-top:6px;
-  width: fit-content;
-
-  padding:5px 10px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:1000;
-
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.25);
-  color: var(--mut);
-}
-
-.suggestPill .pDot{
-  width:10px;
-  height:10px;
-  border-radius:3px;
-  background: rgba(255,255,255,.28);
-  box-shadow: 0 0 0 2px rgba(0,0,0,.25);
-}
-
-/* état LIVE */
-.suggestItem.isLive .suggestPill{
-  color: #160a06;
-  background: linear-gradient(90deg, var(--glow), var(--orange));
-  border-color: rgba(0,0,0,.18);
-  box-shadow: 0 12px 26px rgba(255,122,24,.14);
-}
-.suggestItem.isLive .suggestPill .pDot{
-  background:#ff2d2d;
-  box-shadow: 0 0 18px rgba(255,45,45,.45);
-}
-
-/* état OFF */
-.suggestItem.isOff .suggestPill{
-  color: rgba(234,240,255,.70);
-}
-.suggestItem.isOff .suggestPill .pDot{
-  background: rgba(255,255,255,.22);
-}
-
-.scene{ width:100%; }
-
-.offlineBox{
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.18);
-  padding:16px;
-  text-align:center;
-}
-
-.offlineTitle{
-  font-weight:1000;
-  font-size:20px;
-  margin-bottom:8px;
-}
-
-.offlineSub{
-  color: var(--mut);
-  font-weight:800;
-  margin-bottom:14px;
-}
-
-.offlineImg{
-  width:100%;
-  max-height:360px;
-  object-fit:cover;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.10);
-}
-
-/* petit effet BRB */
-#brbScene .offlineBox{
-  box-shadow: 0 0 40px rgba(255,209,102,.15);
-  border-color: rgba(255,209,102,.25);
-}
-/* ===== Suggested Streamers LIVE/OFF pill ===== */
-.suggestRow{
-  margin-top:6px;
-  display:flex;
-  gap:10px;
-  align-items:center;
-  flex-wrap:wrap;
-}
-
-.suggestPill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.22);
-  font-weight:1000;
-  font-size:12px;
-}
-
-.pDot{
-  width:10px;
-  height:10px;
-  border-radius:3px;
-  display:inline-block;
-  box-shadow: 0 0 18px rgba(255,122,24,.18);
-}
-
-.pDot.off{
-  background: rgba(255,255,255,.30);
-  box-shadow:none;
-}
-
-.pDot.live{
-  background: #ff2d2d;
-  box-shadow: 0 0 22px rgba(255,45,45,.45);
-}
-
-.pText{letter-spacing:.3px;}
-
-/* un petit boost visibilité (option) */
-.suggestItem{
-  min-height: 110px;
-}
-.miniIcon{
-  width:18px;              /* un peu plus visible */
-  height:18px;
-  vertical-align:middle;
-  margin-right:6px;
-  object-fit:contain;
-}
-.suggestItem.isLive .miniIcon{
-  filter: drop-shadow(0 0 6px rgba(255,209,102,.6));
-}
-.pDot{
-  width:10px; height:10px; border-radius:3px;
-  display:inline-block;
-  background: rgba(255,255,255,.18);
-  box-shadow: 0 0 0 2px rgba(0,0,0,.15) inset;
-  margin-right:6px;
-  vertical-align:middle;
-}
-.pDot.off{ background: rgba(255,255,255,.22); }
-.pDot.live{
-  background:#ff2d2d;
-  box-shadow: 0 0 16px rgba(255,45,45,.45);
-}
-.pText{ font-weight:1000; }
-/* ===============================
-   🎥 OFFLINE / LIVE Switch
-================================ */
-
-.liveWrap{
-  position:relative;
-}
-
-.offlineLayer{
-  position:absolute;
-  inset:0;
-  z-index:5;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#000;
-  transition: opacity .3s ease;
-}
-
-.offlineImage{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* OFFLINE = image visible */
-.is-off .offlineLayer{
-  opacity:1;
-  pointer-events:auto;
-}
-
-/* LIVE = image cachée */
-.is-live .offlineLayer{
-  opacity:0;
-  pointer-events:none;
-}
-/* ===== OFFLINE.PNG area ===== */
-.offlineArea{
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.18);
-}
-.offlineImg{
-  display:block;
-  width:100%;
-  height:auto;
-}
-
-/* ===== Mini icons (Twitch / Dofus) ===== */
-.miniIcon{
-  width:18px;
-  height:18px;
-  object-fit:contain;
-  vertical-align:middle;
-  margin-right:8px;
-  filter: drop-shadow(0 6px 12px rgba(0,0,0,.35));
-}
-
-/* ===== LEGO mini icon (CSS) ===== */
-.legoIcon{
-  width:18px;
-  height:18px;
-  border-radius:4px;
-  display:inline-block;
-  vertical-align:middle;
-  margin-right:8px;
-  background:
-    radial-gradient(circle at 25% 30%, rgba(255,255,255,.55), transparent 38%),
-    linear-gradient(180deg, #ffd166, #ff7a18);
-  box-shadow:
-    0 0 0 1px rgba(0,0,0,.25),
-    0 8px 18px rgba(0,0,0,.35);
-}
-
-/* ===== Partenaires un peu plus grand (visible) ===== */
-.sugAvatar{
-  width:84px !important;
-  height:84px !important;
-  border-radius:18px !important;
-}
-.suggestItem{
-  padding:16px !important;
-}
-.suggestName{
-  font-size:16px !important;
-}
-/* ================================
-   🔥 Partner LIVE Glow (CLEAN)
-================================ */
-
-.suggestLine{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-top:6px;
-  flex-wrap:wrap;
-}
-
-/* pill OFF/LIVE */
-.pBadge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:6px 10px;
-  border-radius:999px;
-  background: rgba(0,0,0,.28);
-  border:1px solid rgba(255,255,255,.12);
-  font-weight:1000;
-  font-size:12px;
-}
-
-.pDot{
-  width:10px;
-  height:10px;
-  border-radius:3px;
-  background: rgba(255,255,255,.22);
-  box-shadow:none;
-}
-.pDot.off{ background: rgba(255,255,255,.22); }
-.pDot.live{
-  background:#ff2d2d;
-  box-shadow: 0 0 18px rgba(255,45,45,.45);
-}
-
-.pText{ letter-spacing:.2px; opacity:.9; }
-
-/* ✅ Quand partenaire LIVE -> glow sur la carte */
-.suggestItem.is-live{
-  border-color: rgba(255,45,45,.28);
-  background:
-    radial-gradient(120% 120% at 15% 20%, rgba(255,209,102,.10), transparent 60%),
-    radial-gradient(120% 120% at 80% 30%, rgba(255,45,45,.10), transparent 65%),
-    rgba(255,255,255,.05);
-  box-shadow:
-    0 18px 55px rgba(0,0,0,.35),
-    0 0 0 1px rgba(255,255,255,.08),
-    0 0 40px rgba(255,45,45,.16),
-    0 0 90px rgba(255,45,45,.10);
-}
-
-.suggestItem.is-live .pBadge{
-  background: rgba(255,45,45,.12);
-  border-color: rgba(255,45,45,.25);
-}
-
-.suggestItem.is-live .sugAvatar{
-  box-shadow:
-    0 10px 28px rgba(0,0,0,.35),
-    0 0 24px rgba(255,45,45,.18);
-}
-/* mini icônes jeux (LEGO / Dofus) */
-.miniIcon{
-  width:14px;
-  height:14px;
-  vertical-align:-2px;
-  margin-right:6px;
-  display:inline-block;
-}
-
-/* ligne sous le pseudo (badge OFF/LIVE + infos) */
-.suggestLine{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-top:6px;
-  flex-wrap:wrap; /* évite casse sur petit écran */
-}
-
-.suggestStatus{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  font-size:12px;
-  opacity:.85;
-}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}

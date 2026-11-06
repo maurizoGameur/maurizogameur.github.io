@@ -4,176 +4,88 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MaurizoGameur • Accueil</title>
-  <meta name="description" content="MaurizoGameur • Dofus & Pokémon • Live + Chat + Planning + Discord" />
+  <meta name="description" content="MaurizoGameur • Dofus & Pokémon • Live, chat et Discord" />
   <link rel="stylesheet" href="./style.css" />
 </head>
-
 <body>
   <main class="wrap">
-
-    <!-- TOPBAR (shared) -->
-    <div class="topbar">
+    <header class="topbar">
       <div class="left">
         <span class="badge">
           <span class="dot off" data-live-dot></span>
           <span data-live-label>OFFLINE</span>
-          <span class="sep">•</span>
-          <span class="name">MaurizoGameur</span>
+          <span class="sep">|</span>
+          <span>MaurizoGameur</span>
         </span>
-        <p class="sub">⚡ Gameur passionné • Chill • Respect</p>
+        <p class="sub">Gameur passionné, chill et respectueux</p>
       </div>
-
-      <div class="right">
-        <a class="btn" href="./index.html">🏠 Accueil</a>
-        <a class="btn" href="./planning.html">📅 Planning</a>
+      <nav class="right" aria-label="Navigation">
+        <a class="btn" aria-current="page" href="./index.html">🏠 Accueil</a>
         <a class="btn" href="./mapage.html">👤 Ma page</a>
         <a class="btn" href="https://discord.gg/7ARVD5hzR9" target="_blank" rel="noreferrer">💬 Discord</a>
+        <a class="btn btn--primary" data-live-btn style="display:none" href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">🔴 LIVE</a>
+        <a class="btn btn--primary" data-twitch-btn href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">🎥 Twitch</a>
+      </nav>
+    </header>
 
-        <!-- 🔴 Visible seulement quand LIVE -->
-        <a class="btn btn--primary" data-live-btn style="display:none"
-           href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">
-          🔴 LIVE
-        </a>
-
-        <!-- 🎥 Visible seulement quand OFFLINE -->
-        <a class="btn btn--primary" data-twitch-btn
-           href="https://www.twitch.tv/maurizogameur" target="_blank" rel="noreferrer">
-          🎥 Twitch
-        </a>
-      </div>
-    </div>
-
-    <!-- Banner -->
     <section class="banner" aria-label="Bannière">
       <div class="bannerInner">
-        <span class="bannerRight">🔥 Bienvenue chez MaurizoGameur</span>
+        <h1 class="bannerTitle">MaurizoGameur</h1>
+        <span class="bannerRight">Dofus, Pokémon et bonne humeur. Bienvenue ! ⚔️</span>
       </div>
     </section>
 
-    <!-- Live + Chat -->
     <section class="card">
-      <h2 class="cardTitle">📺 Live + Chat</h2>
-
-      <!-- OFFLINE image -->
+      <h2 class="cardTitle">📺 Live et chat</h2>
       <div class="offlineArea" data-offline-area>
-        <img class="offlineImg" src="./OFFLINE.PNG" alt="MaurizoGameur • Offline">
+        <img class="offlineImg" src="./OFFLINE.PNG" alt="MaurizoGameur est hors ligne">
       </div>
-
-      <!-- LIVE area -->
-      <div class="liveArea" data-live-area style="display:none">
+      <div data-live-area style="display:none">
         <div class="liveGrid">
-          <div class="frameBox">
-            <iframe
-              class="player"
-              src="https://player.twitch.tv/?channel=maurizogameur&parent=maurizogameur.github.io&autoplay=false"
-              allowfullscreen="true">
-            </iframe>
-          </div>
-
-          <div class="frameBox">
-            <iframe
-              class="chat"
-              src="https://www.twitch.tv/embed/maurizogameur/chat?parent=maurizogameur.github.io">
-            </iframe>
-          </div>
+          <div class="frameBox"><iframe class="player" title="Stream Twitch" src="https://player.twitch.tv/?channel=maurizogameur&parent=maurizogameur.github.io&autoplay=false" allowfullscreen></iframe></div>
+          <div class="frameBox"><iframe class="chat" title="Chat Twitch" src="https://www.twitch.tv/embed/maurizogameur/chat?parent=maurizogameur.github.io"></iframe></div>
         </div>
       </div>
     </section>
 
-   <!-- 🤝 Partenaires -->
-<section class="card">
-  <h2 class="cardTitle">🦅 MaurizoGameur suggère ces streamers 💛</h2>
-  <div class="suggestGrid">
-  <a class="suggestItem" data-suggest data-channel="ionegeek"
-   href="https://www.twitch.tv/ionegeek" target="_blank" rel="noreferrer">
+    <section class="card">
+      <h2 class="cardTitle">🦅 Des streamers que je recommande 💛</h2>
+      <div class="suggestGrid">
+      <a class="suggestItem" data-suggest data-channel="ionegeek" href="https://www.twitch.tv/ionegeek" target="_blank" rel="noreferrer">
+        <img class="sugAvatar" src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/ionegeek.png" alt="ionegeek">
+        <div class="suggestMeta">
+          <div class="suggestName">ionegeek</div>
+          <div class="suggestLine">
+            <span class="pBadge"><span class="pDot off" data-pdot></span><span data-ptext class="pText">OFF</span></span>
+            <span class="suggestStatus">🃏 TCG • 🎥 Twitch</span>
+          </div>
+        </div>
+      </a>
+      <a class="suggestItem" data-suggest data-channel="gagini_" href="https://www.twitch.tv/gagini_" target="_blank" rel="noreferrer">
+        <img class="sugAvatar" src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/gagini.png" alt="gagini_">
+        <div class="suggestMeta">
+          <div class="suggestName">gagini_</div>
+          <div class="suggestLine">
+            <span class="pBadge"><span class="pDot off" data-pdot></span><span data-ptext class="pText">OFF</span></span>
+            <span class="suggestStatus"><img class="miniIcon" src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/lego.png" alt="LEGO"> LEGO • 🎥 Twitch</span>
+          </div>
+        </div>
+      </a>
+      <a class="suggestItem" data-suggest data-channel="benjsammy" href="https://www.twitch.tv/benjsammy" target="_blank" rel="noreferrer">
+        <img class="sugAvatar" src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/benjsammy.png" alt="benjsammy">
+        <div class="suggestMeta">
+          <div class="suggestName">benjsammy</div>
+          <div class="suggestLine">
+            <span class="pBadge"><span class="pDot off" data-pdot></span><span data-ptext class="pText">OFF</span></span>
+            <span class="suggestStatus"><img class="miniIcon" src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/dofus.png" alt="Dofus"> Dofus • 🎥 Twitch</span>
+          </div>
+        </div>
+      </a>
+      </div>
+    </section>
 
-  <div class="suggestAvatarWrap">
-    <img class="sugAvatar"
-         src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/ionegeek.png"
-         alt="ionegeek">
-  </div>
-
-  <div class="suggestMeta">
-    <div class="suggestName">ionegeek</div>
-
-    <div class="suggestLine">
-      <span class="pBadge">
-        <span class="pDot off" data-pdot></span>
-        <span class="pText" data-ptext>OFF</span>
-      </span>
-
-      <span class="suggestStatus">
-        🃏 TCG • 🎥 Twitch
-      </span>
-    </div>
-  </div>
-</a>
-
-    <a class="suggestItem" data-suggest data-channel="gagini_"
-   href="https://www.twitch.tv/gagini_" target="_blank" rel="noreferrer">
-
-  <div class="suggestAvatarWrap">
-    <img class="sugAvatar"
-         src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/gagini.png"
-         alt="gagini_">
-  </div>
-
-  <div class="suggestMeta">
-    <div class="suggestName">gagini_</div>
-
-    <div class="suggestLine">
-
-      <!-- Badge LIVE/OFF -->
-      <span class="pBadge">
-        <span class="pDot off" data-pdot></span>
-        <span class="pText" data-ptext>OFF</span>
-      </span>
-
-      <!-- Infos jeux -->
-      <span class="suggestStatus">
-        <img class="miniIcon"
-             src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/lego.png"
-             alt="LEGO">
-        LEGO • 🎥 Twitch
-      </span>
-
-    </div>
-  </div>
-</a>
-
-    <a class="suggestItem" data-suggest data-channel="benjsammy"
-   href="https://www.twitch.tv/benjsammy" target="_blank" rel="noreferrer">
-
-  <div class="suggestAvatarWrap">
-    <img class="sugAvatar"
-         src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/benjsammy.png"
-         alt="benjsammy">
-  </div>
-
-  <div class="suggestMeta">
-    <div class="suggestName">benjsammy</div>
-
-    <div class="suggestLine">
-      <span class="pBadge">
-        <span class="pDot off" data-pdot></span>
-        <span class="pText" data-ptext>OFF</span>
-      </span>
-
-      <span class="suggestStatus">
-        <img class="miniIcon"
-             src="https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/dofus.png"
-             alt="Dofus">
-        Dofus • 🎥 Twitch
-      </span>
-    </div>
-  </div>
-</a>
-
-  </div>
-</section>
-
+    <p class="foot">Fait avec 🧡 par MaurizoGameur</p>
   </main>
-
   <script src="./site.js"></script>
 </body>
 </html>
