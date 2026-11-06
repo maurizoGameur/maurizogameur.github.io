@@ -1,0 +1,112 @@
+/* style.css — MaurizoGameur v2 (thème noir, orange et or) */
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap");
+
+:root{
+  /* Bleach : noir, blanc os, orange Ichigo — Dofus : or ocre */
+  --bg:#080b0e; --panel:#0f1519; --panel2:#151e23; --line:#25373d;
+  --red:#e11d2e; --orange:#ff7a1a; --gold:#f0b04f;
+  --ink:#f3f1ea; --mut:#9fb3b3; --live:#ff3040;
+  --r:6px;
+  --font:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --title:"Anton","Bricolage Grotesque",Impact,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.55;overflow-x:hidden;
+  background-image:radial-gradient(800px 380px at 85% -100px,rgba(255,122,26,.20),transparent 70%),radial-gradient(700px 360px at 5% -120px,rgba(240,176,79,.10),transparent 70%)}
+img,iframe{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+.wrap{width:min(1180px,calc(100% - 28px));margin:0 auto;padding-bottom:48px}
+
+/* ===== Navigation ===== */
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 0;margin-bottom:18px;background:linear-gradient(var(--bg) 70%,transparent)}
+.left{display:flex;align-items:center;gap:12px;min-width:0}
+.sub{margin:0;color:var(--mut);font-size:14px}
+.right{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--panel);
+  border:1px solid var(--line);font-weight:800;white-space:nowrap}
+.badge .sep{opacity:.4}
+.dot,.pDot{width:10px;height:10px;border-radius:50%;background:#7a5d52;flex:none}
+.dot.live,.pDot.live{background:var(--live);box-shadow:0 0 0 0 rgba(255,48,64,.7);animation:ping 1.6s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 9px rgba(255,48,64,0)}100%{box-shadow:0 0 0 0 rgba(255,48,64,0)}}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:10px;text-decoration:none;font-weight:600;
+  font-size:15px;color:var(--ink);border:1px solid transparent;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--panel2);border-color:var(--line)}
+.btn[aria-current="page"]{background:var(--panel2);border-color:var(--line)}
+.btn--primary{background:var(--orange);color:#140700;font-weight:800}
+.btn--primary:hover{background:#ff9340;border-color:transparent}
+
+/* ===== Bannière ===== */
+.banner{position:relative;min-height:340px;border-radius:var(--r);overflow:hidden;clip-path:polygon(0 0,100% 0,100% calc(100% - 28px),calc(100% - 60px) 100%,0 100%);border:1px solid var(--line);
+  display:flex;align-items:flex-end;
+  background:linear-gradient(180deg,rgba(20,11,10,.1),rgba(20,11,10,.88)),
+  url("https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/banner.png") center/cover,var(--panel2)}
+.banner::before{content:"";position:absolute;top:-20%;right:12%;width:14px;height:140%;background:var(--orange);transform:rotate(22deg);opacity:.9}
+.bannerInner{position:relative;padding:28px}
+.bannerTitle{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.bannerRight{display:block;color:var(--gold);font-weight:600;font-size:1.15rem;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.is-live .banner{border-color:var(--live);box-shadow:0 0 50px rgba(255,48,64,.25)}
+
+/* ===== Sections ===== */
+.card,.frame{margin-top:18px;padding:20px;border-radius:var(--r);background:var(--panel);border:1px solid var(--line)}
+.cardTitle{margin:0 0 14px;font-family:var(--title);font-weight:400;font-size:1.5rem;letter-spacing:.02em;border-left:5px solid var(--orange);padding-left:10px}
+
+/* Live + chat */
+.offlineArea{border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.offlineImg{width:100%;height:auto}
+.liveGrid{display:grid;grid-template-columns:1.6fr 1fr;gap:12px}
+.frameBox{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#000}
+iframe{border:0;width:100%}
+.player{aspect-ratio:16/9;min-height:360px}
+.chat{height:100%;min-height:360px}
+
+/* Streamers suggérés */
+.suggestGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.suggestItem{display:flex;align-items:center;gap:14px;padding:14px;border-radius:8px;text-decoration:none;
+  background:var(--panel2);border:1px solid var(--line);transition:border-color .15s,transform .15s}
+.suggestItem:hover{border-color:var(--orange);transform:translateY(-2px)}
+.suggestItem.is-live{border-color:var(--live);box-shadow:0 0 28px rgba(255,48,64,.2)}
+.sugAvatar{width:72px;height:72px;border-radius:8px;object-fit:cover;background:#111;border:2px solid var(--gold)}
+.suggestMeta{min-width:0}
+.suggestName{font-weight:800;font-size:1.05rem}
+.suggestLine{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px}
+.pBadge{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;background:var(--bg);
+  border:1px solid var(--line);font-size:12px;font-weight:800}
+.is-live .pBadge{border-color:var(--live);color:#ffb4ae}
+.suggestStatus{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--mut)}
+.miniIcon{width:16px;height:16px;object-fit:contain}
+
+/* ===== Ma page ===== */
+.pageGrid{display:grid;grid-template-columns:340px 1fr;gap:22px;align-items:start}
+.profile{border-radius:8px;overflow:hidden;background:var(--panel2);border:1px solid var(--line)}
+.photo{width:100%;aspect-ratio:1;object-fit:cover}
+.cardPad{padding:16px}
+.h1{margin:0 0 4px;font-family:var(--title);font-weight:400;font-size:1.9rem;line-height:1.1}
+.meta{margin:0;color:var(--gold);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{padding:6px 12px;border-radius:999px;background:var(--bg);border:1px solid var(--line);font-size:14px;font-weight:600}
+/* Bio façon boîte de dialogue de jeu */
+.bio{padding:20px 22px;border-radius:8px;background:var(--bg);border:3px solid var(--gold);
+  box-shadow:inset 0 0 0 3px var(--bg),inset 0 0 0 5px var(--orange);font-size:1.05rem;max-width:62ch}
+.bio p{margin:0 0 12px}.bio p:last-child{margin:0}
+.links{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
+.linkCard{display:block;padding:14px 16px;border-radius:8px;text-decoration:none;font-weight:800;
+  background:var(--panel2);border:1px solid var(--line);transition:border-color .15s,transform .15s}
+.linkCard:last-child:nth-child(odd){grid-column:1/-1}
+.linkCard:hover{border-color:var(--orange);transform:translateY(-2px)}
+.linkSmall{display:block;margin-top:2px;font-weight:400;font-size:13px;color:var(--mut)}
+.planImg{width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+
+.foot{margin-top:28px;text-align:center;color:var(--mut);font-size:14px}
+
+@media (max-width:900px){
+  .sub{display:none}
+  .banner{min-height:240px}
+  .liveGrid,.pageGrid,.suggestGrid,.links{grid-template-columns:1fr}
+  .player,.chat{min-height:260px}
+  .topbar{flex-direction:column;align-items:stretch}
+  .right{justify-content:flex-start}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
