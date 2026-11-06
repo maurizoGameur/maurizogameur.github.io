@@ -1,10 +1,10 @@
-/* style.css — MaurizoGameur v2 (thème FireRed : braise, orange, or) */
+/* style.css — MaurizoGameur v2 (thème noir, orange et or) */
 @import url("https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap");
 
 :root{
-  /* Bleach : noir, blanc os, orange Ichigo — Dofus : turquoise */
+  /* Bleach : noir, blanc os, orange Ichigo — Dofus : or ocre */
   --bg:#080b0e; --panel:#0f1519; --panel2:#151e23; --line:#25373d;
-  --red:#e11d2e; --orange:#ff7a1a; --gold:#4fe3c9;
+  --red:#e11d2e; --orange:#ff7a1a; --gold:#f0b04f;
   --ink:#f3f1ea; --mut:#9fb3b3; --live:#ff3040;
   --r:6px;
   --font:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -13,7 +13,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.55;overflow-x:hidden;
-  background-image:radial-gradient(800px 380px at 85% -100px,rgba(255,122,26,.20),transparent 70%),radial-gradient(700px 360px at 5% -120px,rgba(79,227,201,.12),transparent 70%)}
+  background-image:radial-gradient(800px 380px at 85% -100px,rgba(255,122,26,.20),transparent 70%),radial-gradient(700px 360px at 5% -120px,rgba(240,176,79,.10),transparent 70%)}
 img,iframe{max-width:100%;display:block}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
@@ -45,8 +45,8 @@ a{color:inherit}
   url("https://raw.githubusercontent.com/maurizoGameur/maurizogameur.github.io/main/banner.png") center/cover,var(--panel2)}
 .banner::before{content:"";position:absolute;top:-20%;right:12%;width:14px;height:140%;background:var(--orange);transform:rotate(22deg);opacity:.9}
 .bannerInner{position:relative;padding:28px}
-.bannerTitle{margin:0;font-family:var(--title);font-weight:400;font-size:clamp(3rem,9vw,6.2rem);line-height:.95;letter-spacing:.01em;text-transform:uppercase}
-.bannerRight{display:block;margin-top:10px;color:var(--gold);font-weight:600;font-size:1.1rem}
+.bannerTitle{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.bannerRight{display:block;color:var(--gold);font-weight:600;font-size:1.15rem;text-shadow:0 2px 12px rgba(0,0,0,.8)}
 .is-live .banner{border-color:var(--live);box-shadow:0 0 50px rgba(255,48,64,.25)}
 
 /* ===== Sections ===== */
